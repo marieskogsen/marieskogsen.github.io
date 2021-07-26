@@ -13,3 +13,6 @@ body
   top: 0;
   z-index: 10;
 }
+.navbar{
+  background-image: linear-gradient(to right,#a517ba,#5f1782);
+}
