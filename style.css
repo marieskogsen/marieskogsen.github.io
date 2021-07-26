@@ -30,3 +30,10 @@ body
   background-image: linear-gradient(to right, #ffc04c, #ffa500);
   padding-top: 5%;
 }
+.promo-title
+{
+  font-size: 40px;
+  font-weight: 600;
+  margin-top: 100;
+  
+}
