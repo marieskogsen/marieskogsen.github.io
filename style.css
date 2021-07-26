@@ -21,3 +21,12 @@ body
 {
   font-weight:600;
 }
+
+
+
+
+#banner
+{
+  background-image: linear-gradient(to right, #ffc04c, #ffa500);
+  padding-top=5%;
+}
