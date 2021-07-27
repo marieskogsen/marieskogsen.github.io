@@ -24,7 +24,6 @@ body
 
 
 
-
 #banner
 {
   background-image: linear-gradient(to right, #ffc04c, #ffa500);
@@ -53,3 +52,60 @@ body
   padding-top: 50px;
 }
 
+
+
+.temperature {
+	background-color: white;
+}
+.settings-icon {
+	height: 20px;
+	vertical-align: unset;
+	margin-bottom: 5px;
+}
+
+.main {
+	background-color: #B2E5F0;
+}
+
+.card {
+	border: 0px;
+}
+
+.list-group-item.active,
+.btn-nrf {
+	color: white!important;
+	background-color: #00a9ce;
+	border-color: #00a9ce;
+}
+
+.nrf-blue {
+	color: #00a9ce;
+}
+
+.nrf-light-blue {
+	color: #b2e5f0;
+}
+
+.top-card {
+	margin-top: 70px;
+}
+
+.border-bottom {
+	border-bottom-color: lightgrey;
+}
+
+border-right {
+	border-right-color: lightgrey;
+}
+
+#splashView {
+	background-color: #B2E5F0;
+}
+
+#mainlogo {
+	width: 250px;
+}
+
+#flip-image {
+	width: 100px;
+}
