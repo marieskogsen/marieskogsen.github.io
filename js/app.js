@@ -1,6 +1,7 @@
 // Global objects
 
-const api = af2cf1f0a9b60f858a98dc956ce7c98a3800857b;
+const api = new NRFCloudAPI(af2cf1f0a9b60f858a98dc956ce7c98a3800857b);
+const deviceId = 352656106106472;
 let counterInterval;
 let requestInterval;
 
