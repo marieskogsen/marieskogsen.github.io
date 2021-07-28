@@ -14,9 +14,6 @@ const updateFunc = {
 }
 
 function orderPizza() {
-	// stop previous intervals if there was an order already
-	clearInterval(counterInterval);
-	clearInterval(requestInterval);
 
 	// check nRFCloud messages from the device every 5 seconds
 	requestInterval = setInterval(async () => {
@@ -42,4 +39,10 @@ $(document).ready(() => {
 	$('body').tooltip({ selector: '[data-toggle="tooltip"]' });
 
 
+	$('#api-key').on('input', () => {
+		api.accessToken = $('#api-key').val().trim();
+		localStorage.setItem('apiKey', api.accessToken);
+		loadDeviceNames();
+	});
+	
 	});

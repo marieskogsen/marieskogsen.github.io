@@ -101,6 +101,38 @@
 </div>
 
 
+<div id="settingsView" class="d-none align-items-center whole-width main flex-fill flex-column desktop-friendly-size">
+  <div class="card w-75 mb-4 rounded-sm top-card">
+    <div class="card-body">
+      <h5 class="card-title">Thingy:91 Credentials</h5>
+      <label for="api-key">API Key</label>
+      <textarea
+        id="api-key"
+        class="form-control mb-3"
+        aria-label="With textarea"
+        placeholder="3ce36d0b1b69a0346672a2e9be29a7645688c9f9"
+      ></textarea>
+      <label for="device-name">Device Name</label>
+      <div id="device-list" class="list-group" role="tablist"></div>
+    </div>
+  </div>
+  <div class="card w-75 mb-4 rounded-sm ">
+    <div class="card-body">
+      <p class="card-text small text-muted">
+        This web app demonstrates a connection to the nRF Connect for Cloud REST API.
+        In order to use the app you must find and enter the API Key and Device Name.
+      </p>
+      <p class="card-text small text-muted">
+        Please refer to the <em>Getting Started Guide</em> in the 
+        <a href="https://nrfcloud.com/#/docs" class="nrf-blue">
+          nRF Connect for Cloud docs
+        </a>
+        for more details.
+      </p>
+    </div>
+  </div>
+</div>
+
 <div id="curve_chart" style="width: 900px; height: 500px"></div>
 </section>
   
