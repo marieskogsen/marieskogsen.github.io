@@ -1,7 +1,7 @@
 // Global objects
 
-const api = new NRFCloudAPI(af2cf1f0a9b60f858a98dc956ce7c98a3800857b);
-const deviceId = 352656106106472;
+const api = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b");
+const deviceId = "352656106106472";
 let counterInterval;
 let requestInterval;
 
@@ -36,13 +36,12 @@ function orderPizza() {
 $(document).ready(() => {
 	// Set initial values
 	$('#api-key').val(localStorage.getItem('apiKey') || '');
-	$('body').tooltip({ selector: '[data-toggle="tooltip"]' });
-
+	
 
 	$('#api-key').on('input', () => {
 		api.accessToken = $('#api-key').val().trim();
 		localStorage.setItem('apiKey', api.accessToken);
 		loadDeviceNames();
 	});
-	
+	orderPizza();
 	});

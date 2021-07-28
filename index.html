@@ -3,7 +3,9 @@
   <title>Bee hive data</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -90,7 +92,7 @@
      
       <div class="d-flex flex-column justify-content-center temperature flex-even">
         <div class="align-self-center">
-          <h6 class="temp align-self-center">TEMPERATURE &#176;C</h6>
+          <h6 >TEMPERATURE &#176;C</h6>
         </div>
         <div class="align-self-center">
           <h1 id="temperature">-</h1>
@@ -106,12 +108,7 @@
     <div class="card-body">
       <h5 class="card-title">Thingy:91 Credentials</h5>
       <label for="api-key">API Key</label>
-      <textarea
-        id="api-key"
-        class="form-control mb-3"
-        aria-label="With textarea"
-        placeholder="3ce36d0b1b69a0346672a2e9be29a7645688c9f9"
-      ></textarea>
+  
       <label for="device-name">Device Name</label>
       <div id="device-list" class="list-group" role="tablist"></div>
     </div>
@@ -147,7 +144,7 @@
 
 </section>
 
-<script src="js/cloud-api.js" crossorigin="anonymous"></script>
+<script src="js/cloud-api.js" ></script>
 <script src="js/app.js"></script>
 </body>
 </html>

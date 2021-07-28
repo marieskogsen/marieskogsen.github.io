@@ -65,3 +65,6 @@ class NRFCloudAPI {
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}`);
 	}
 }
+
+
+
