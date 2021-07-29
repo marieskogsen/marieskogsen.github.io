@@ -53,15 +53,48 @@ body
   padding-top: 50px;
 }
 
-
+.temperature{
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
 
 #temperature {
 	background-color: white;
   padding-bottom: 20px;
   padding-top: 20px;
+  padding-left: 150px;
+  padding-right: 150px;
 }
 
+#humidity {
+	background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+.humidity{
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+#weight {
+	background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+.weight{
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
 .description{
   padding-bottom: 20px;
   padding-top: 20px;
+}
+
+.img-bee{
+  width: 500px;
+  
 }

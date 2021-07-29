@@ -8,6 +8,11 @@
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   
+<!--new chart-->
+<script type="text/javascript" loading="lazy" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!--new chart-->
+
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -36,6 +41,8 @@
   
 </head>
 <body>
+
+<!--Navigation bar section-->
 <section id="nav_bar">
   
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -69,17 +76,17 @@
   <div class="row">
   <div class="col-md-6">
   <p class="promo-title">Live data from the bee hives</p>
-  <p>Your hive's weight, humidity and temperature at all times. Find out how busy the bees are with the counter, or if they are attacked by a woodpecker!</p>
+  <p>Your hive's weight, humidity and temperature. Find out how busy the bees are with the counter, or if they are attacked by a woodpecker!</p>
   </div>
   <div class="col-md-6 text-center">
-  <img src="images/1.png" class="img-fluid">
+  <img src="images/beehive.png" class="img-bee">
   </div>
   </div>
   </div>
   
   
 </section> 
-<!-----Data----->
+<!-----Data section----->
       
 <section id="hivedata">
 <div class="container">
@@ -89,7 +96,15 @@
 
   <div class="d-flex flex-column flex-even">
     <div class="d-flex flex-row flex-even border-bottom">
-     
+      <div class="d-flex flex-column justify-content-center humidity flex-even border-right">
+        <div class="align-self-center">
+          <h6>HUMIDITY %</h6>
+        </div>
+        <div class="align-self-center">
+          <h1 id="humidity">-</h1>
+        </div>
+        <div class="align-self-center">The humidity right now</div>
+      </div>
       <div class="d-flex flex-column justify-content-center temperature flex-even">
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
@@ -97,6 +112,16 @@
         <div class="align-self-center">
           <h1 id="temperature">-</h1>
         </div>
+        <div class="align-self-center">The temperature right now</div>
+      </div>
+      <div class="d-flex flex-column justify-content-center weight flex-even border-left">
+        <div class="align-self-center">
+          <h6>WEIGHT lbs</h6>
+        </div>
+        <div class="align-self-center">
+          <h1 id="weight">-</h1>
+        </div>
+        <div class="align-self-center">The weight right now</div>
       </div>
     </div>
   </div>
@@ -130,10 +155,11 @@
   </div>
 </div>
 
+<div id="chart_div" style="width: 900px; height: 500px"></div>
 <div id="curve_chart" style="width: 900px; height: 500px"></div>
 </section>
   
-<!-----ABOUT US----->
+<!-----About section----->
       
 <section id="about">
 <div class="container">

@@ -64,6 +64,14 @@ class NRFCloudAPI {
 		const devIdsParam = deviceId ? `&deviceIdentifiers=${deviceId}` : '';
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}`);
 	}
+
+	getOldMessages(deviceId) {
+		const end = this.getMessages_start || new Date(end - 10000);
+		const start = this.getMessages_start || new Date(end - 86400000);
+		this.getMessages_start = new Date();
+		const devIdsParam = deviceId ? `&deviceIdentifiers=${deviceId}` : '';
+		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}`);
+	}
 }
 
 
