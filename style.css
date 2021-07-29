@@ -39,6 +39,7 @@ body
 }
 
 
+
 #hivedata
 {
   padding-bottom: 50px;
@@ -93,8 +94,31 @@ body
   padding-bottom: 20px;
   padding-top: 20px;
 }
+.img-hive{
+  position: reltive;
+  left: 0;
+  top: 0;
+  width: 300px;
+  
+}
+
 
 .img-bee{
-  width: 500px;
-  
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  animation: move 2.5s linear infinite;
+}
+
+@keyframes move  {
+  0%{
+    transform: translate(-15px,0px);
+  }
+  50%{
+    transform: translate(0px,-15px);
+  }
+  100%{
+    transform: translate(-15px,0px);
+  }
 }
