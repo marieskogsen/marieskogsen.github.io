@@ -12,7 +12,7 @@
 <script type="text/javascript" loading="lazy" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <!--new chart-->
-
+<!--
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -38,7 +38,7 @@
         chart.draw(data, options);
       }
     </script>
-  
+  -->
 </head>
 <body>
 
@@ -75,7 +75,7 @@
   <div class="container">
   <div class="row">
   <div class="col-md-6">
-  <p class="promo-title">Live data from the bee hives</p>
+  <p class="promo-title">SMART HIVES: Live data from the bee hives</p>
   <p class= "desc">Your hive's weight, humidity and temperature. Find out how busy the bees are with the counter, or if they are attacked by a woodpecker!</p>
   </div>
   <div class="col-md-6 text-center">
@@ -94,7 +94,7 @@
   <h1 class="title text-center">Hive Data</h1>
 </div>
 
-
+<div id="trackView" class="d-none align-items-center whole-width main flex-fill flex-column"></div>
   <div class="d-flex flex-column flex-even">
     <div class="d-flex flex-row flex-even border-bottom">
       <div class="d-flex flex-column justify-content-center humidity flex-even border-right">
@@ -104,7 +104,7 @@
         <div class="align-self-center">
           <h1 id="humidity">-</h1>
         </div>
-        <div class="align-self-center">The humidity right now</div>
+        <div class="align-self-center">Last updated humidity data</div>
       </div>
       <div class="d-flex flex-column justify-content-center temperature flex-even">
         <div class="align-self-center">
@@ -113,7 +113,7 @@
         <div class="align-self-center">
           <h1 id="temperature">-</h1>
         </div>
-        <div class="align-self-center">The temperature right now</div>
+        <div class="align-self-center">Most recent temperature data</div>
       </div>
       <div class="d-flex flex-column justify-content-center weight flex-even border-left">
         <div class="align-self-center">
@@ -122,42 +122,20 @@
         <div class="align-self-center">
           <h1 id="weight">-</h1>
         </div>
-        <div class="align-self-center">The weight right now</div>
+        <div class="align-self-center">Recently updated weight data</div>
       </div>
-    </div>
-  </div>
-
-
-
-<div id="settingsView" class="d-none align-items-center whole-width main flex-fill flex-column desktop-friendly-size">
-  <div class="card w-75 mb-4 rounded-sm top-card">
-    <div class="card-body">
-      <h5 class="card-title">Thingy:91 Credentials</h5>
-      <label for="api-key">API Key</label>
-  
-      <label for="device-name">Device Name</label>
-      <div id="device-list" class="list-group" role="tablist"></div>
-    </div>
-  </div>
-  <div class="card w-75 mb-4 rounded-sm ">
-    <div class="card-body">
-      <p class="card-text small text-muted">
-        This web app demonstrates a connection to the nRF Connect for Cloud REST API.
-        In order to use the app you must find and enter the API Key and Device Name.
-      </p>
-      <p class="card-text small text-muted">
-        Please refer to the <em>Getting Started Guide</em> in the 
-        <a href="https://nrfcloud.com/#/docs" class="nrf-blue">
-          nRF Connect for Cloud docs
-        </a>
-        for more details.
-      </p>
     </div>
   </div>
 </div>
 
-<div id="chart_div" style="width: 900px; height: 500px"></div>
-<div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+
+<!--div id="chart_div" style="width: 900px; height: 500px"></div-->
+<div class="col-md-6">
+<div id="chart_hum" style="width: 700px; height: 500px"></div>
+</div>
+
+<!--div id="curve_chart" style="width: 900px; height: 500px"></div-->
 </section>
   
 <!-----About section----->
@@ -165,10 +143,27 @@
 <section id="about">
 <div class="container">
   <h1 class="about-title text-center">About Beehaviour</h1>
-  <p class="description text-center">Lorem Ipsum Dolor</p>
+  <div class="row">
+  <div class="col-md-6">
+    <p class="description text-center">We are a group of summer students at Nordic Semiconductor! Our summer project was about digitalizing bee hives by monitoring temperature, humidity and weight using nrf5340 development kits and Thingy:91 along with external sensors. Sensor data from the kits and the sensors were sent over BLE. The data fetched from the hives was sent to nrfCloud using the Thingy:91, and then presented on this website.</p>
+  </div>
+  <div class="col-md-6">
+    <img src="images/justbee.png" class="small-bee">
+    <img src="images/justbee.png" class="small-bee2">
+  </div>
+</div>
 </div>
 
+</section>
 
+<section id= "footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer-box">
+      <p class="footer-text">Beehaviour monitoring 2021</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <script src="js/cloud-api.js" ></script>

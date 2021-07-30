@@ -23,8 +23,6 @@ body
   color: #000 !important;
 }
 
-
-
 #banner
 {
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
@@ -38,7 +36,28 @@ body
   
 }
 
+.title::before{
+  content: "";
+  background: #ffc04c;
+  height: 3px;
+  width:200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transform: translateY(58px);
+}
 
+.title::after{
+  content: "";
+  background: #ff9a00;
+  height: 6px;
+  width:50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  display: block;
+  transform: translateY(5px);
+}
 
 #hivedata
 {
@@ -52,6 +71,33 @@ body
   background: #f8f9fa;
   padding-bottom: 50px;
   padding-top: 50px;
+}
+
+#about ul{
+  margin-right: -20px;
+}
+
+.about-title::before{
+  content: "";
+  background: #ffc04c;
+  height: 3px;
+  width:400px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transform: translateY(58px);
+}
+
+.about-title::after{
+  content: "";
+  background: #ff9a00;
+  height: 6px;
+  width:50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  display: block;
+  transform: translateY(5px);
 }
 
 .temperature{
@@ -95,18 +141,18 @@ body
   padding-top: 20px;
 }
 .img-hive{
-  position: reltive;
-  left: 0;
+  position: relative;
+  left: 50;
   top: 0;
-  width: 300px;
-  
+  width: 350px;
+  padding-left: 30px;
 }
 
 
 .img-bee{
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 40;
+  top: -70;
   width: 200px;
   animation: move 2.5s linear infinite;
 }
@@ -121,4 +167,46 @@ body
   100%{
     transform: translate(-15px,0px);
   }
+}
+
+@keyframes moving  {
+  0%{
+    transform: translate(0px,-15px);
+  }
+  50%{
+    transform: translate(-15px,0px);
+  }
+  100%{
+    transform: translate(0px,-15px);
+  }
+}
+#chart_hum{
+  padding-top: 50px;
+ 
+}
+
+#footer{
+  background-image: linear-gradient(to right, #ffc04c, #ff9a00);
+  
+}
+.footer-box{
+  padding: 20px;
+  font-weight: 600;
+}
+.footer-text{
+  position: fixed;
+}
+
+.small-bee{
+  width: 120px;
+  position: relative;
+  animation: move 2.5s linear infinite;
+  left: 250;
+}
+
+.small-bee2{
+  width: 110px;
+  position: relative;
+  animation: moving 2.5s linear infinite;
+  left: 300;
 }
