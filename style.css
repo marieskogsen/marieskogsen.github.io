@@ -33,7 +33,7 @@ body
   font-size: 40px;
   font-weight: 600;
   margin-top: 100px;
-  
+  color: #000 !important;
 }
 
 .title::before{
