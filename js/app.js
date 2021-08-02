@@ -5,9 +5,7 @@ let counterInterval;
 let requestInterval;
 let temp;
 let humid;
-let currentDate = new Date();
-let index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
-
+let index;
 console.log(index);
 
 // Collection of update functions for different message types of nRFCloud device messages
@@ -17,7 +15,6 @@ const updateFunc = {
 		data = f_data.toString();
 		$('#temperature').text(data);
 		temp = parseFloat(data);
-		
 	},
 	HUMID: data => {
 		var f_data = parseFloat(data).toFixed(3);
@@ -28,14 +25,15 @@ const updateFunc = {
 	}
 }
 
-//translate time data to format of the index value
+//translate time data to same format as the index value
 const updateTime = {
 	TEMP: time => {
-		currentDate = new Date(time);
+		var currentDate = new Date(time);
 		index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
 	},
 	HUMID: time => {
-		currentDate = new Date(time);
+		var currentDate = new Date(time);
+		console.log(time*1000);
 		console.log(currentDate);
 		index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
 		console.log(index);
@@ -51,16 +49,16 @@ function checkNRFCloudMessages() {
 
 		(items || [])
 		.map(({ message }) => message)
-		.forEach(({ appId, data }) => {
+		.forEach(({ appId, data, time }) => {
 			if (!updateFunc[appId]) {
 				console.log('unhandled appid', appId, data);
 				return;
 			}
 			updateFunc[appId](data);
+			updateTime[appId](time);
 			
 		});
 	}, 5000);
-
 }
 
 
@@ -183,25 +181,16 @@ google.charts.load("current", {
 
 		(items || [])
 		.map(({ message }) => message)
-		.forEach(({ appId, data }) => {
+		.forEach(({ appId, data, time }) => {
 			if (!updateFunc[appId]) {
 				console.log('unhandled appid', appId, data);
 				return;
-			
-			}updateFunc[appId](data);
-
-			(items || [])
-			.map(({ message }) => message)
-			.forEach(({appId,time})=>{
-				console.log(appId);
-				updateTime[appId](time);
-				new_data.addRow([index, temp, humid]);
-			});
-			
-			chart.draw(new_data, options);
+			}
+			updateFunc[appId](data);
+			updateTime[appId](time);
 		});
-
- 	
+		new_data.addRow([index, temp, humid]);
+		chart.draw(new_data, options);
 	 // update current time index
 	/*currentDate = new Date();
   	index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
