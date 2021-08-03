@@ -29,13 +29,13 @@ const updateFunc = {
 const updateTime = {
 	TEMP: time => {
 		var currentDate = new Date(time);
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes());
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
 	},
 	HUMID: time => {
 		var currentDate = new Date(time);
 		console.log(time*1000);
 		console.log(currentDate);
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes());
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
 		console.log(index);
 
 	}
@@ -49,6 +49,7 @@ function checkNRFCloudMessages(new_data, chart, options) {
 
 		(items || [])
 		.map(({ message }) => message)
+		.slice().reverse()
 		.forEach(({ appId, data, time }) => {
 			if (!updateFunc[appId]) {
 				console.log('unhandled appid', appId, data);
@@ -86,7 +87,7 @@ google.charts.load("current", {
 	new_data.addColumn("datetime","Time");
 	new_data.addColumn("number","Temperature");
 	new_data.addColumn("number","Humidity");
-	new_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes()), NaN, NaN]);
+	new_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), initialDate.getSeconds()), NaN, NaN]);
 
 	// create options object with titles, colors, etc.
 	let options = {
@@ -157,5 +158,5 @@ $(document).ready(() => {
 		localStorage.setItem('apiKey', api.accessToken);
 		loadDeviceNames();
 	});
-	checkNRFCloudMessages(new_data,chart,options);
+	//checkNRFCloudMessages(new_data,chart,options);
 	});
