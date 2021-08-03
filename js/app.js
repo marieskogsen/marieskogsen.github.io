@@ -29,19 +29,19 @@ const updateFunc = {
 const updateTime = {
 	TEMP: time => {
 		var currentDate = new Date(time);
-		index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes());
 	},
 	HUMID: time => {
 		var currentDate = new Date(time);
 		console.log(time*1000);
 		console.log(currentDate);
-		index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes());
 		console.log(index);
 
 	}
 }
 
-function checkNRFCloudMessages() {
+function checkNRFCloudMessages(new_data, chart, options) {
 
 	// check nRFCloud messages from the device every 5 seconds
 	requestInterval = setInterval(async () => {
@@ -56,7 +56,8 @@ function checkNRFCloudMessages() {
 			}
 			updateFunc[appId](data);
 			updateTime[appId](time);
-			
+			new_data.addRow([index, temp, humid]);
+			chart.draw(new_data, options);
 		});
 	}, 5000);
 }
@@ -68,65 +69,7 @@ function drawLast24Hours(){
 		// function that is run one time when the website is loaded; will draw stored data
 		// from the last 24 hours where the last stored data is initialized as current time.
 }
-/*
-// load current chart package
-google.charts.load("current", {
-	packages: ["corechart", "line"]
-  });
-  
-  // set callback function when api loaded
-  google.charts.setOnLoadCallback(drawChart);
 
-  function drawChart() {
-	// create data object with default value
-	var new_data = new google.visualization.DataTable();
-	let initialDate = new Date();
-	new_data.addColumn("timeofday","Time");
-	new_data.addColumn("number","Temperature");
-	new_data.addRow([[initialDate.getHours(),initialDate.getMinutes(),0,0], 0.0]);
-	// create options object with titles, colors, etc.
-	let options = {
-	  title: "Temperature",
-	  hAxis: {
-		title: "Time"
-	  },
-	  vAxis: {
-		title: "Celsius"
-	  }
-	};
-	// draw chart on load
-	let chart = new google.visualization.LineChart(
-	  document.getElementById("chart_div")
-	);
-	chart.draw(new_data, options);
-
-
-	let currentDate = new Date();
-	let index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
-	setInterval(async() =>{
- 	// instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
- 	
-	const { items } = await api.getMessages(localStorage.getItem('deviceId') || '');
-
-	(items || [])
-	.map(({ message }) => message)
-	.forEach(({ appId, data }) => {
-		if (!updateFunc[appId]) {
-			console.log('unhandled appid', appId, data);
-			return;
-		}
-		updateFunc[appId](data);
-	});
-
- 	new_data.addRow([index, temp]);
- 	chart.draw(new_data, options);
-	 // update current time index
-	currentDate = new Date();
-  	index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
-	}, 5000);
-
-  }
-*/
 //new chart
 
 google.charts.load("current", {
@@ -135,15 +78,15 @@ google.charts.load("current", {
   
   // set callback function when api loaded
   google.charts.setOnLoadCallback(drawChart);
-
+  
   function drawChart() {
 	// create data object with default value
 	var new_data = new google.visualization.DataTable();
 	let initialDate = new Date();
-	new_data.addColumn("timeofday","Time");
+	new_data.addColumn("datetime","Time");
 	new_data.addColumn("number","Temperature");
 	new_data.addColumn("number","Humidity");
-	new_data.addRow([[initialDate.getHours()-2,initialDate.getMinutes(),0,0], 0.0, 0.0]);
+	new_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes()), NaN, NaN]);
 
 	// create options object with titles, colors, etc.
 	let options = {
@@ -159,7 +102,7 @@ google.charts.load("current", {
 	  vAxes: {
 		// Adds titles to each axis.
 		0: {title: 'Temps (Celsius)'},
-		1: {title: 'Humdidity (%)'}
+		1: {title: 'Humidity (%)'}
 	  },
 	  vAxis: {
 		viewWindow: {
@@ -173,7 +116,7 @@ google.charts.load("current", {
 	  document.getElementById("chart_hum")
 	);
 	chart.draw(new_data, options);
-	
+	checkNRFCloudMessages(new_data, chart, options);
 	setInterval(async() =>{
  	// instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
  	
@@ -214,5 +157,5 @@ $(document).ready(() => {
 		localStorage.setItem('apiKey', api.accessToken);
 		loadDeviceNames();
 	});
-	checkNRFCloudMessages();
+	checkNRFCloudMessages(new_data,chart,options);
 	});
