@@ -1,70 +1,90 @@
 // Global objects
-const api = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b");
+// const api = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
+const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
 const deviceId = "352656106106472";
 let counterInterval;
 let requestInterval;
 let temp;
 let humid;
+let weight;
 let index;
 console.log(index);
 
 // Collection of update functions for different message types of nRFCloud device messages
 const updateFunc = {
-	TEMP: data => {
-		var f_data = parseFloat(data).toFixed(2);
-		data = f_data.toString();
-		$('#temperature').text(data);
-		temp = parseFloat(data);
+	Thingy: HUMID => {
+		var f_data = parseFloat(HUMID).toFixed(2);
+		HUMID = f_data.toString();
+		$('#humidity').text(HUMID);
+		humid = parseFloat(HUMID);
 	},
-	HUMID: data => {
-		var f_data = parseFloat(data).toFixed(3);
-		data = f_data.toString();
-		$('#humidity').text(data);
-		humid = parseFloat(data);
-		
+	"BM-W": RTT => {
+		console.log('weight: ',RTT)
+		var f_data = parseFloat(RTT).toFixed(2);
+		RTT = f_data.toString();
+		$('#weight').text(RTT);
+		weight = parseFloat(RTT);
 	}
 }
 
-//translate time data to same format as the index value
-const updateTime = {
-	TEMP: time => {
-		var currentDate = new Date(time);
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-	},
-	HUMID: time => {
-		var currentDate = new Date(time);
-		console.log(time*1000);
-		console.log(currentDate);
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-		console.log(index);
+const updateTemp = {
+	Thingy: TEMP => {
+		var f_data = parseFloat(TEMP).toFixed(2);
+		TEMP = f_data.toString();
+		$('#temperature').text(TEMP);
+		temp = parseFloat(TEMP);
+	}
+}
 
+const updateTime = {
+	Thingy: TIME => {
+		var f_time = parseInt(TIME);
+		TIME = f_time*1000;
+		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+						currentDate.getHours(), currentDate.getMinutes());
+	},
+	"BM-W": TIME => {
+		// console.log('time',TIME);	
+		// var f_time = parseInt(TIME);
+		TIME = TIME*1000;
+		var currentDate = new Date(TIME*1000); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+						currentDate.getHours(), currentDate.getMinutes());
 	}
 }
 
 function checkNRFCloudMessages(new_data, chart, options) {
-
-	// check nRFCloud messages from the device every 5 seconds
-	requestInterval = setInterval(async () => {
+	
+	requestInterval = setInterval(async() =>{
+		// instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
+		
 		const { items } = await api.getMessages(localStorage.getItem('deviceId') || '');
-
+		
 		(items || [])
 		.map(({ message }) => message)
-		.slice().reverse()
-		.forEach(({ appId, data, time }) => {
-			if (!updateFunc[appId]) {
-				console.log('unhandled appid', appId, data);
+		.forEach(({ appID, TIME, TEMP, RTT, HUMID}) => {
+			if (!updateFunc[appID]) {
+				console.log('unhandled appID', appID);
 				return;
 			}
-			updateFunc[appId](data);
-			updateTime[appId](time);
-			new_data.addRow([index, temp, humid]);
-			chart.draw(new_data, options);
-		});
-	}, 5000);
-}
-
-
-
+			console.log('appID: ',appID);
+			switch(appID) {
+				case "Thingy" :
+					updateTemp[appID](TEMP);
+					updateFunc[appID](HUMID);
+					break;
+					case "BM-W" :
+						updateFunc[appID](RTT);
+						break;
+					}
+					updateTime[appID](TIME);
+					
+				});
+				new_data.addRow([index, temp, humid]);
+				chart.draw(new_data, options);
+			}, 5000);
+}	
 //new chart
 function drawLast24Hours(){
 		// function that is run one time when the website is loaded; will draw stored data
@@ -87,7 +107,7 @@ google.charts.load("current", {
 	new_data.addColumn("datetime","Time");
 	new_data.addColumn("number","Temperature");
 	new_data.addColumn("number","Humidity");
-	new_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), initialDate.getSeconds()), NaN, NaN]);
+	new_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes()), NaN, NaN]);
 
 	// create options object with titles, colors, etc.
 	let options = {
@@ -118,28 +138,6 @@ google.charts.load("current", {
 	);
 	chart.draw(new_data, options);
 	checkNRFCloudMessages(new_data, chart, options);
-	setInterval(async() =>{
- 	// instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
- 	
-		const { items } = await api.getMessages(localStorage.getItem('deviceId') || '');
-
-		(items || [])
-		.map(({ message }) => message)
-		.forEach(({ appId, data, time }) => {
-			if (!updateFunc[appId]) {
-				console.log('unhandled appid', appId, data);
-				return;
-			}
-			updateFunc[appId](data);
-			updateTime[appId](time);
-		});
-		new_data.addRow([index, temp, humid]);
-		chart.draw(new_data, options);
-	 // update current time index
-	/*currentDate = new Date();
-  	index = [currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds()];
-	*/
-	}, 5000);
 
   }
 
@@ -158,5 +156,4 @@ $(document).ready(() => {
 		localStorage.setItem('apiKey', api.accessToken);
 		loadDeviceNames();
 	});
-	//checkNRFCloudMessages(new_data,chart,options);
 	});
