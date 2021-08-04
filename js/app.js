@@ -46,8 +46,6 @@ const updateTime = {
 						currentDate.getHours(), currentDate.getMinutes());
 	},
 	"BM-W": TIME => {
-		// console.log('time',TIME);	
-		// var f_time = parseInt(TIME);
 		TIME = TIME*1000;
 		var currentDate = new Date(TIME*1000); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
 		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
@@ -80,11 +78,11 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 					updateTemp[appID](TEMP);
 					updateFunc[appID](HUMID);
 					break;
-					case "BM-W" :
-						updateFunc[appID](RTT);
-						break;
-					}
-					updateTime[appID](TIME);
+				case "BM-W" :
+					updateFunc[appID](RTT);
+					break;
+				}
+				updateTime[appID](TIME);
 					
 				});
 			// update temperature chart
@@ -103,12 +101,12 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 
 google.charts.load("current", {
 	packages: ["corechart", "line"]
-  });
+});
   
-  // set callback function when api loaded
-  google.charts.setOnLoadCallback(drawChart);
+// set callback function when api loaded
+google.charts.setOnLoadCallback(drawChart);
   
-  function drawChart() {
+function drawChart() {
 	// create temp data object with default value
 	var temp_data = new google.visualization.DataTable();
 	let initialDate = new Date();
@@ -177,7 +175,7 @@ google.charts.load("current", {
 		colors: ["#ff9a00"]
 	  };
 
-	// draw the two charts on load
+	// draw the three charts on load
 	let t_chart = new google.visualization.LineChart(
 	  document.getElementById("chart_temp")
 	);
