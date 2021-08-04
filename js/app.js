@@ -42,7 +42,7 @@ const updateTime = {
 		var f_time = parseInt(TIME);
 		TIME = f_time*1000;
 		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 
 						currentDate.getHours(), currentDate.getMinutes());
 	},
 	"BM-W": TIME => {
@@ -50,7 +50,7 @@ const updateTime = {
 		var f_time = parseInt(TIME);
 		TIME = f_time*1000;
 		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 
 						currentDate.getHours(), currentDate.getMinutes());
 	}
 }
@@ -117,7 +117,7 @@ function drawChart() {
 	temp_data.addColumn("datetime","Time");
 	temp_data.addColumn("number","Temperature");
 	temp_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					 initialDate.getDate()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					 initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					 initialDate.getSeconds()), NaN]);
 	
 	// create humid data object with default value
