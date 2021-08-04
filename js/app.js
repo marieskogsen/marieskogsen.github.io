@@ -46,8 +46,10 @@ const updateTime = {
 						currentDate.getHours(), currentDate.getMinutes());
 	},
 	"BM-W": TIME => {
-		TIME = TIME*1000;
-		var currentDate = new Date(TIME*1000); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		// console.log('time',TIME);	
+		var f_time = parseInt(TIME);
+		TIME = f_time*1000;
+		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
 		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
 						currentDate.getHours(), currentDate.getMinutes());
 	}
@@ -67,7 +69,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		(items || [])
 		.map(({ message }) => message)
 		.slice().reverse()
-		.forEach(({ appID, TIME, TEMP, RTT, HUMID}) => {
+		.forEach(({ appID, TEMP, HUMID, RTT, TIME }) => {
 			if (!updateFunc[appID]) {
 				console.log('unhandled appID', appID);
 				return;
@@ -77,23 +79,25 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 				case "Thingy" :
 					updateTemp[appID](TEMP);
 					updateFunc[appID](HUMID);
+					updateTime[appID](TIME);
+					// update temperature chart
+					temp_data.addRow([index, temp]);
+					t_chart.draw(temp_data, t_options);
+					// update humidity chart
+					humid_data.addRow([index, humid]);
+					h_chart.draw(humid_data, h_options);
 					break;
 				case "BM-W" :
 					updateFunc[appID](RTT);
+					updateTime[appID](TIME);
+					// update weight chart
+					weight_data.addRow([index, weight]);
+					w_chart.draw(weight_data, w_options);
+					break;
+				default: 
 					break;
 				}
-				updateTime[appID](TIME);
-					
-				});
-			// update temperature chart
-			temp_data.addRow([index, temp]);
-			t_chart.draw(temp_data, t_options);
-			// update humidity chart
-			humid_data.addRow([index, humid]);
-			h_chart.draw(humid_data, h_options);
-			// update weight chart
-			weight_data.addRow([index, weight]);
-			w_chart.draw(weight_data, w_options);
+			});
 
 	}, 5000);
 }	
@@ -113,7 +117,7 @@ function drawChart() {
 	temp_data.addColumn("datetime","Time");
 	temp_data.addColumn("number","Temperature");
 	temp_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					 initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					 initialDate.getDate()+1, initialDate.getHours(), initialDate.getMinutes(), 
 					 initialDate.getSeconds()), NaN]);
 	
 	// create humid data object with default value
