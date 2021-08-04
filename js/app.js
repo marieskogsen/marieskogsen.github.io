@@ -5,6 +5,7 @@ let counterInterval;
 let requestInterval;
 let temp;
 let humid;
+let weight;
 let index;
 console.log(index);
 
@@ -61,27 +62,40 @@ console.log(index);
 	}, 5000);
 } */
 
-const updateTemp = {
+const updateFunc = {
 	Thingy: TEMP => {
 		var f_data = parseFloat(TEMP).toFixed(2);
 		TEMP = f_data.toString();
-		$('#humidity').text(TEMP);
+		$('#temperature').text(TEMP);
 		temp = parseFloat(TEMP);
-	}
-}
-const updateHumid = {
+	},
 	Thingy: HUMID => {
 		var f_data = parseFloat(HUMID).toFixed(2);
 		HUMID = f_data.toString();
-		$('#temperature').text(HUMID);
+		$('#humidity').text(HUMID);
 		humid = parseFloat(HUMID);
+	},
+	Broodminder: WEIGHT => {
+		var f_data = parseFloat(WEIGHT).toFixed(2);
+		WEIGHT = f_data.toString();
+		$('#weight').text(WEIGHT);
+		weight = parseFloat(WEIGHT);
 	}
 }
 const updateTime = {
 	Thingy: TIME => {
-		var currentDate = new Date(TIME*1000);
-		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), 
-						currentDate.getDay()+1, currentDate.getHours(), currentDate.getMinutes());
+		var f_time = parseInt(TIME);
+		TIME = f_time*1000;
+		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+						currentDate.getHours(), currentDate.getMinutes());
+	},
+	Broodminder: TIME => {
+		var f_time = parseInt(TIME);
+		TIME = f_time*1000;
+		var currentDate = new Date(TIME*1000); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 
+						currentDate.getHours(), currentDate.getMinutes());
 	}
 }
 
@@ -93,14 +107,14 @@ function checkNRFCloudMessages(new_data, chart, options) {
 
 		(items || [])
 		.map(({ message }) => message)
-		.forEach(({ appID, TEMP, HUMID, TIME }) => {
+		.forEach(({ appID, TEMP, HUMID/* , TIME  */}) => {
 			// if (!updateFunc[appID]) {
 			// 	console.log('unhandled appID', appID);
 			// 	return;
 			// }
-			updateTemp[appID](TEMP);			
-			updateHumid[appID](HUMID);
-			updateTime[appID](TIME);
+			updateFunc[appID](TEMP);
+			updateFunc[appID](HUMID); 
+			// updateTime[appID](TIME);
 			new_data.addRow([index, temp, humid]);
 			chart.draw(new_data, options);
 		});
