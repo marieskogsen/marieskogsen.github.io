@@ -12,7 +12,8 @@ let index;
 
 
 // Collection of update functions for different message types of nRFCloud device messages
-const updateFunc = {
+/* Update function for the first or only data variable the appID has */
+const primaryUpdateFunc = { 
 	Thingy: HUMID => {
 		var f_data = parseFloat(HUMID).toFixed(2);
 		HUMID = f_data.toString();
@@ -28,7 +29,8 @@ const updateFunc = {
 	}
 }
 
-const updateTemp = {
+/* Update function for appIDs with two data variables */
+const secondaryUpdateFunc = { 
 	Thingy: TEMP => {
 		var f_data = parseFloat(TEMP).toFixed(2);
 		TEMP = f_data.toString();
@@ -37,6 +39,7 @@ const updateTemp = {
 	}
 }
 
+/* Update function for the time stamp connected to each appID */
 const updateTime = {
 	Thingy: TIME => {
 		var f_time = parseInt(TIME);
@@ -70,15 +73,15 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		.map(({ message }) => message)
 		.slice().reverse()
 		.forEach(({ appID, TEMP, HUMID, RTT, TIME }) => {
-			if (!updateFunc[appID]) {
+			if (!primaryUpdateFunc[appID]) {
 				console.log('unhandled appID', appID);
 				return;
 			}
 			console.log('appID: ',appID);
 			switch(appID) {
 				case "Thingy" :
-					updateTemp[appID](TEMP);
-					updateFunc[appID](HUMID);
+					secondaryUpdateFunc[appID](TEMP);
+					primaryUpdateFunc[appID](HUMID);
 					updateTime[appID](TIME);
 					// update temperature chart
 					temp_data.addRow([index, temp]);
@@ -88,7 +91,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 					h_chart.draw(humid_data, h_options);
 					break;
 				case "BM-W" :
-					updateFunc[appID](RTT);
+					primaryUpdateFunc[appID](RTT);
 					updateTime[appID](TIME);
 					// update weight chart
 					weight_data.addRow([index, weight]);
@@ -117,7 +120,7 @@ function drawChart() {
 	temp_data.addColumn("datetime","Time");
 	temp_data.addColumn("number","Temperature");
 	temp_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					 initialDate.getDate()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					 initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					 initialDate.getSeconds()), NaN]);
 	
 	// create humid data object with default value
@@ -125,7 +128,7 @@ function drawChart() {
 	humid_data.addColumn("datetime","Time");
 	humid_data.addColumn("number","Humidity");
 	humid_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					  initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					  initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					  initialDate.getSeconds()), NaN]);
 	
 	// create data object for weight graph
@@ -133,7 +136,7 @@ function drawChart() {
 	weight_data.addColumn("datetime","Time");
 	weight_data.addColumn("number","Weight");
 	weight_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					   initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					   initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					   initialDate.getSeconds()), NaN]);
 	
 	// create options object with titles, colors, etc.
