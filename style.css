@@ -8,14 +8,15 @@ body
   font-family: sans-serif;
 }
 header {
-  position: fixed;
+  position:fixed;
   width: 100%;
+  background-image: linear-gradient(to right, #ffc04c, #ff9a00);
   top: 0;
-  left: 0;
+
 }
 #nav-bar
 {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
 }
