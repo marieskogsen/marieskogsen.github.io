@@ -150,7 +150,7 @@ function drawChart() {
 		  max: 45,
 		  min: 0
 		},
-		title: "Temperature"
+		title: "Temp (celsius)"
 	  }
 	};
 	// options for humidity plot
@@ -161,9 +161,9 @@ function drawChart() {
 	  },
 	  vAxis: {
 		viewWindow: {
-		  max: 50
+		  max: 70
 		},
-		title: "Humidity"
+		title: "Humidity (%)"
 	  },
 	  colors: ["#a52714"]
 	};
@@ -215,6 +215,10 @@ $(document).ready(() => {
 		api.accessToken = $('#api-key').val().trim();
 		localStorage.setItem('apiKey', api.accessToken);
 		loadDeviceNames();
+	});
+	$('#reboot a').click(() => {
+		alert("Restart message sent to nRFCloud");
+		
 	});
 });
 

@@ -35,6 +35,12 @@ class NRFCloudAPI {
 		});
 	}
 
+	post(endpoint) {
+		return this.request(endpoint, {
+			method: 'POST'
+		});
+	}
+
 	// Example calls, not used in pizza app
 	// https://docs.api.nrfcloud.com/api/api-rest.html#nrf-cloud-device-rest-api-account
 	account() {
@@ -64,7 +70,6 @@ class NRFCloudAPI {
 		const devIdsParam = deviceId ? `&deviceIdentifiers=${deviceId}` : '';
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}&pageLimit=100`);
 	}
-
 
 }
 
