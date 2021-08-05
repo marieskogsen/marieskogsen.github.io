@@ -125,7 +125,7 @@ function drawChart() {
 	humid_data.addColumn("datetime","Time");
 	humid_data.addColumn("number","Humidity");
 	humid_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					  initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					  initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					  initialDate.getSeconds()), NaN]);
 	
 	// create data object for weight graph
@@ -133,7 +133,7 @@ function drawChart() {
 	weight_data.addColumn("datetime","Time");
 	weight_data.addColumn("number","Weight");
 	weight_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
-					   initialDate.getDay()+1, initialDate.getHours(), initialDate.getMinutes(), 
+					   initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					   initialDate.getSeconds()), NaN]);
 	
 	// create options object with titles, colors, etc.
