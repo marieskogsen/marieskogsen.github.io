@@ -7,6 +7,12 @@ body
 {
   font-family: sans-serif;
 }
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
 #nav-bar
 {
   position: sticky;
