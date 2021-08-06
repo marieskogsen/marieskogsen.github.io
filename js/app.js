@@ -1,15 +1,15 @@
 // Global objects
-// const api = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
+const api_test = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
 const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
-
+const deviceId = "nrf-352656106119046";
 let counterInterval;
 let requestInterval;
 let temp;
 let humid;
 let weight;
 let index;
-
-
+let b_in;
+let b_out;
 
 // Collection of update functions for different message types of nRFCloud device messages
 /* Update function for the first or only data variable the appID has */
@@ -26,6 +26,9 @@ const primaryUpdateFunc = {
 		RTT = f_data.toString();
 		$('#weight').text(RTT);
 		weight = parseFloat(RTT);
+	},
+	"BEE-CNT": OUT => {
+		b_out = parseInt(OUT);
 	}
 }
 
@@ -36,6 +39,9 @@ const secondaryUpdateFunc = {
 		TEMP = f_data.toString();
 		$('#temperature').text(TEMP);
 		temp = parseFloat(TEMP);
+	},
+	"BEE-CNT": IN => {
+		b_in = parseInt(IN);
 	}
 }
 
@@ -55,13 +61,21 @@ const updateTime = {
 		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
 		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 
 						currentDate.getHours(), currentDate.getMinutes());
+	},
+	"BEE-CNT": TIME => {
+		var f_time = parseInt(TIME);
+		TIME = f_time*1000;
+		var currentDate = new Date(TIME); // TIME is in seconds, need milliseconds as seed, so TIME * 1000 is passed. 
+		index = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 
+						currentDate.getHours(), currentDate.getMinutes());
 	}
 }
 
 
 function checkNRFCloudMessages(temp_data, t_chart, t_options,
 							   humid_data, h_chart, h_options,
-							   weight_data, w_chart, w_options) {
+							   weight_data, w_chart, w_options,
+							   beecnt_data, b_chart, b_options) {
 
 	
 	requestInterval = setInterval(async() =>{
@@ -72,7 +86,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		(items || [])
 		.map(({ message }) => message)
 		.slice().reverse()
-		.forEach(({ appID, TEMP, HUMID, RTT, TIME }) => {
+		.forEach(({ appID, TEMP, HUMID, RTT, TIME, IN, OUT }) => {
 			if (!primaryUpdateFunc[appID]) {
 				console.log('unhandled appID', appID);
 				return;
@@ -96,6 +110,14 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 					// update weight chart
 					weight_data.addRow([index, weight]);
 					w_chart.draw(weight_data, w_options);
+					break;
+				case "BEE-CNT":
+					secondaryUpdateFunc[appID](IN);
+					primaryUpdateFunc[appID](OUT);
+					updateTime[appID](TIME);
+					// update bee counter chart
+					beecnt_data.addRow([index, b_in, b_out]);
+					b_chart.draw(beecnt_data, b_options);
 					break;
 				default: 
 					break;
@@ -138,6 +160,15 @@ function drawChart() {
 	weight_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
 					   initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					   initialDate.getSeconds()), NaN]);
+
+	// create data object for beecount graph
+	var beecnt_data = new google.visualization.DataTable();
+	beecnt_data.addColumn("datetime","Time");
+	beecnt_data.addColumn("number","Bees in");
+	beecnt_data.addColumn("number","Bees out");
+	beecnt_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
+					   initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
+					   initialDate.getSeconds()), NaN, NaN]);
 	
 	// create options object with titles, colors, etc.
 	let t_options = {
@@ -182,6 +213,26 @@ function drawChart() {
 		colors: ["#ff9a00"]
 	  };
 
+	  // create options for beecnt object with titles etc.
+	let b_options = {
+		title: "Bee counter",
+		hAxis: {
+		  title: "Time"
+		},
+		series: {
+			0: {targetAxisIndex: 0, color: "#007f00"},
+			1: {targetAxisIndex: 1, color: "#ee82ee"}
+		  },
+		vAxes: {
+			// Adds titles to each axis.
+			0: {title: 'Number of bees in'},
+			1: {title: 'Number of bees out'}
+		},		
+		vAxis: {
+			title: "Number of bees"
+		}
+	  };
+
 	// draw the three charts on load
 	let t_chart = new google.visualization.LineChart(
 	  document.getElementById("chart_temp")
@@ -192,15 +243,20 @@ function drawChart() {
 	let h_chart = new google.visualization.LineChart(
 		document.getElementById("chart_hum")
 	);
+	let b_chart = new google.visualization.LineChart(
+		document.getElementById("chart_bee")
+	);
 
 	t_chart.draw(temp_data, t_options);
 	w_chart.draw(weight_data, w_options);
 	h_chart.draw(humid_data, h_options);
+	b_chart.draw(beecnt_data, b_options);
 
 	//update messages
 	checkNRFCloudMessages(temp_data, t_chart, t_options, 
 					 	  humid_data, h_chart, h_options, 
-						  weight_data, w_chart, w_options);
+						  weight_data, w_chart, w_options,
+						  beecnt_data, b_chart, b_options);
 
 }
 
@@ -209,16 +265,10 @@ function drawChart() {
 $(document).ready(() => {
 	// Set initial values
 	$('#api-key').val(localStorage.getItem('apiKey') || '');
-	
+	localStorage.setItem('deviceId', deviceId);
 
-	$('#api-key').on('input', () => {
-		api.accessToken = $('#api-key').val().trim();
-		localStorage.setItem('apiKey', api.accessToken);
-		loadDeviceNames();
-	});
 	$('#reboot a').click(() => {
 		alert("Restart message sent to nRFCloud");
-		
 	});
 });
 
