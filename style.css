@@ -9,15 +9,16 @@ body
 }
 #nav-bar
 {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
+  width: 100%;
 }
 .navbar{
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
   padding: 0 !important;
 }
-.navbar-nav li a
+.navbar li a
 {
   font-weight:600;
   color: #000 !important;
@@ -26,7 +27,7 @@ body
 #banner
 {
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
-  padding-top: 5%;
+  padding-top: 105px;
 }
 .promo-title
 {
