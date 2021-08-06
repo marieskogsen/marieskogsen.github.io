@@ -71,6 +71,11 @@ class NRFCloudAPI {
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}&pageLimit=100`);
 	}
 
+	sendMessages() {
+		this.sendMessages_start = new Date();
+		return this.post('{"message":"BLE_status"}');
+	}
+
 }
 
 
