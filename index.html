@@ -68,8 +68,8 @@
   </div>
 
   <div id="trackView" class="row">
-    <div class="col-md-4 col-sm-12">
-      <div class="d-md-flex d-sm-flex flex-column justify-content-center humidity flex-even border">  <!-- humitity cell -->
+    <div class="col-md-4 col-12">
+      <div class="d-flex flex-column mx-2 justify-content-center humidity flex-even border">  <!-- humitity cell -->
           <div class="align-self-center">
             <h6>HUMIDITY %</h6>
           </div>
@@ -79,8 +79,8 @@
           <div class="align-self-center">Last updated humidity data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-sm-12">
-      <div class="d-md-flex d-sm-flex flex-column justify-content-center temperature flex-even border"> <!-- temperature cell -->
+    <div class="col-md-4 col-12">
+      <div class="d-flex flex-column mx-2 justify-content-center temperature flex-even border"> <!-- temperature cell -->
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
         </div>
@@ -90,8 +90,8 @@
         <div class="align-self-center">Most recent temperature data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-sm-12">
-      <div class="d-md-flex d-sm-flex flex-column justify-content-center weight flex-even border"> <!-- weight cell -->
+    <div class="col-md-4 col-12">
+      <div class="d-flex flex-column mx-2 justify-content-center weight flex-even border"> <!-- weight cell -->
         <div class="align-self-center">
           <h6>WEIGHT kg</h6>
         </div>
@@ -105,17 +105,20 @@
 </div>
 
 <!--div id="chart_div" style="width: 900px; height: 500px"></div-->
-<div class="col-md-6">
-  <div id="chart_temp" style="width: 700px; height: 500px"></div>
-</div>
-<div class="col-md-6">
-  <div id="chart_hum" style="width: 700px; height: 500px"></div>
-</div>
-<div class="col-md-6">
-  <div id="chart_weight" style="width: 700px; height: 500px"></div>
-</div>
-<div class="col-md-6">
-  <div id="chart_bee" style="width: 700px; height: 500px"></div>
+<div class="row"> <!-- This setup for dynamic sizing of graph works when the charts are drawn relatively often -->
+                  <!-- TODO: Look for ways to redraw charts when window is resized -->
+  <div class="col-lg-6 col-12">
+    <div id="chart_temp" style="width: auto; height: 500px"></div>
+  </div>
+  <div class="col-lg-6 col-12">
+    <div id="chart_hum" style="width: auto; height: 500px"></div>
+  </div>
+  <div class="col-lg-6 col-12">
+    <div id="chart_weight" style="width: auto; height: 500px"></div>
+  </div>
+  <div class="col-lg-6 col-12">
+    <div id="chart_bee" style="width: auto; height: 500px"></div>
+  </div>
 </div>
 <!--div id="curve_chart" style="width: 900px; height: 500px"></div-->
   <div id= "reboot" class= "msg-col text-center">
