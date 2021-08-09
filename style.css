@@ -228,3 +228,47 @@ img.small-bee2{max-width: 45%;}
   border-radius: 30px;
   margin-top: 25px;
 }
+
+.msg-col{
+  width: 700px;
+  height: 100px;
+}
+
+.msg-container{
+  width: 700px;
+  height: 600px;
+  position: relative;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  overflow: hidden;
+}
+
+#slider{
+  display: inline-flex;
+  transition: 0.2s;
+  transform: 0;
+}
+
+.msg-col-alarm{
+  width: 700px;
+  height: 100px;
+}
+
+.msg-col-alarm a {
+  display: inline-block;
+  text-decoration: none;
+	color: #fff!important;
+	background: linear-gradient(to right,#ff0000,#cc0000);
+  font-size: 15px;
+	padding: 10px 35px;
+  border-radius: 30px;
+  margin-top: 25px;
+}
+
+
+.hive{
+  position: relative;
+  left: -50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
