@@ -144,18 +144,20 @@ body
   padding-bottom: 20px;
   padding-top: 20px;
 }
+
+.img{max-width: 100%;}
+
 .img-hive{
   position: relative;
-  left: 50;
+  right:auto;
   top: 0;
   width: 350px;
   padding-left: 30px;
 }
 
-
 .img-bee{
   position: absolute;
-  left: 40;
+  left:0;
   top: -70;
   width: 200px;
   animation: move 2.5s linear infinite;
