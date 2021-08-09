@@ -17,22 +17,23 @@
 
 <!--Navigation bar section-->
 <section id="nav-bar">
-  <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#top">Beehaviour Monitoring</a>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand m-sm-auto ml-2" href="#top">Beehaviour Monitoring</a>
         
-        <button class="navbar-toggler" 
-          type="button" 
-          data-toggle="collapse" 
-          data-target="#navbarSupportedContent" 
-          aria-controls="navbarSupportedContent" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation">
-        <span>Menu</span>
+      <button id=navbar-button 
+        class="navbar-toggler mr-3 mt-auto" 
+        type="button" 
+        data-toggle="collapse" 
+        data-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+      <span class=navbar-toggler-icon></span>
       </button>
       
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-sm-auto ml-2">
           <li class="nav-item">
             <a class="nav-link" href="#hivedata">HIVE DATA</a>
           </li>
@@ -69,7 +70,7 @@
 
   <div id="trackView" class="row">
     <div class="col-md-4 col-12">
-      <div class="d-flex flex-column mx-2 justify-content-center humidity flex-even border">  <!-- humitity cell -->
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center humidity flex-even border">  <!-- humitity cell -->
           <div class="align-self-center">
             <h6>HUMIDITY %</h6>
           </div>
@@ -80,7 +81,7 @@
       </div> <!-- end of cell -->
     </div>
     <div class="col-md-4 col-12">
-      <div class="d-flex flex-column mx-2 justify-content-center temperature flex-even border"> <!-- temperature cell -->
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center temperature flex-even border"> <!-- temperature cell -->
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
         </div>
@@ -91,7 +92,7 @@
       </div> <!-- end of cell -->
     </div>
     <div class="col-md-4 col-12">
-      <div class="d-flex flex-column mx-2 justify-content-center weight flex-even border"> <!-- weight cell -->
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> <!-- weight cell -->
         <div class="align-self-center">
           <h6>WEIGHT kg</h6>
         </div>
