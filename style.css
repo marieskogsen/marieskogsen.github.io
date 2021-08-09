@@ -22,7 +22,6 @@ body
 .navbar{
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
   padding: 0 !important;
-  width: 100%;
 }
 .navbar li a
 {
