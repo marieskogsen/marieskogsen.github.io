@@ -19,6 +19,7 @@ body
 .navbar{
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
   padding: 0 !important;
+  width: 100%;
 }
 .navbar li a
 {
@@ -199,18 +200,17 @@ body
   position: fixed;
 }
 
+img.small-bee{max-width: 50%;}
 .small-bee{
-  width: 120px;
   position: relative;
   animation: move 2.5s linear infinite;
-  left: 250;
+  /* left: 250; */
 }
-
+img.small-bee2{max-width: 45%;}
 .small-bee2{
-  width: 110px;
   position: relative;
   animation: moving 2.5s linear infinite;
-  left: 300;
+  /* left: 300; */
 }
 
 .msg-col a {
