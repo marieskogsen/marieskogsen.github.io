@@ -16,6 +16,9 @@ body
   z-index: 10;
   width: 100%;
 }
+#navbar-button {
+  border:none;
+}
 .navbar{
   background-image: linear-gradient(to right, #ffc04c, #ff9a00);
   padding: 0 !important;
