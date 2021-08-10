@@ -78,6 +78,8 @@ body
   background: #f8f9fa;
   padding-bottom: 50px;
   padding-top: 50px;
+  width: 100%;
+  
 }
 
 #about ul{
@@ -235,21 +237,26 @@ img.small-bee2{max-width: 45%;}
 }
 
 .msg-container{
-  width: 700px;
+  width: 600px;
   height: 600px;
   position: relative;
   margin-top: 100px;
   margin-bottom: 100px;
+  margin-right: 300px;
+  margin-left: 250px;
   overflow: hidden;
 }
 
+.state{
+  width: 100%;
+}
 #slider{
   display: inline-flex;
   transform: 0;
 }
 
 .msg-col-alarm{
-  width: 700px;
+  width: 500px;
   height: 100px;
 }
 
