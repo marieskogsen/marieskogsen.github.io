@@ -191,7 +191,7 @@ function drawChart() {
 	  },
 	  vAxis: {
 		viewWindow: {
-		  max: 70
+		  //max: 70
 		},
 		title: "Humidity (%)"
 	  },
@@ -272,12 +272,13 @@ $(document).ready(() => {
 
 	// Updates sound state; fill in what determines normal state (0%), woodpecker state (-33%) and swarming (-67%)
 	setInterval(async() => {
+		
 		if (temp >= 30){
 			$("#slider").css({
 				"transform":"translateX(-33%)"
 			});
 		}
-		if (temp >= 30 && weight <= 15){
+		else if (temp >= 30){
 			$("#slider").css({
 				"transform":"translateX(-67%)"
 			});
