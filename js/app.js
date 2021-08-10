@@ -1,7 +1,7 @@
 // Global objects
 const api_test = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
 const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
-const deviceId = "nrf-352656106119046";
+const deviceId = "nrf-352656106119046"; // Roof
 let counterInterval;
 let requestInterval;
 let temp;
@@ -79,7 +79,6 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 
 	
 	requestInterval = setInterval(async() =>{
-		// instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
 		
 		const { items } = await api.getMessages(localStorage.getItem('deviceId') || '');
 		
@@ -161,7 +160,7 @@ function drawChart() {
 					   initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
 					   initialDate.getSeconds()), NaN]);
 
-	// create data object for beecount graph
+	// create data object for beecounter graph
 	var beecnt_data = new google.visualization.DataTable();
 	beecnt_data.addColumn("datetime","Time");
 	beecnt_data.addColumn("number","Bees in");
@@ -252,7 +251,7 @@ function drawChart() {
 	h_chart.draw(humid_data, h_options);
 	b_chart.draw(beecnt_data, b_options);
 
-	//update messages
+	// Checks for messages from cloud and updates charts from messages
 	checkNRFCloudMessages(temp_data, t_chart, t_options, 
 					 	  humid_data, h_chart, h_options, 
 						  weight_data, w_chart, w_options,
@@ -270,6 +269,8 @@ $(document).ready(() => {
 	$('#reboot a').click(() => {
 		alert("Restart message sent to nRFCloud");
 	});
+
+	// Updates sound state; fill in what determines normal state (0%), woodpecker state (-33%) and swarming (-67%)
 	setInterval(async() => {
 		if (temp >= 30){
 			$("#slider").css({
