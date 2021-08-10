@@ -38,10 +38,10 @@
             <a class="nav-link" href="#hivedata">HIVE DATA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about">ABOUT </a>
+            <a class="nav-link" href="#soundstate">SOUND STATE</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#state">SOUND STATE</a>
+            <a class="nav-link" href="#about">ABOUT </a>
           </li>
         </ul>
       </div>
@@ -72,7 +72,7 @@
   </div>
 
   <div id="trackView" class="row">
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center humidity flex-even border">  <!-- humitity cell -->
           <div class="align-self-center">
             <h6>HUMIDITY %</h6>
@@ -83,7 +83,7 @@
           <div class="align-self-center">Last updated humidity data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center temperature flex-even border"> <!-- temperature cell -->
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
@@ -94,7 +94,7 @@
         <div class="align-self-center">Most recent temperature data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> <!-- weight cell -->
         <div class="align-self-center">
           <h6>WEIGHT kg</h6>
@@ -110,50 +110,58 @@
 <!--div id="chart_div" style="width: 900px; height: 500px"></div-->
 <div class="row"> <!-- This setup for dynamic sizing of graph works when the charts are drawn relatively often -->
                   <!-- TODO: Look for ways to redraw charts when window is resized -->
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_temp" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_hum" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_weight" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_bee" style="width: auto; height: 500px"></div>
   </div>
-</div>
 <!--div id="curve_chart" style="width: 900px; height: 500px"></div-->
-  <div id= "reboot" class= "msg-col text-center">
-    <h6><a href="">Reset development kits</a></h6>
+  <div class="col">
+    <div id= "reboot" class= "msg-col text-center">
+      <h6><a href="">Reset development kits</a></h6>
+    </div>
+  </div>
+</div>
 </section>
   
 
-<section class="state">
-
-  <div class="msg-container">
-  
-  <div id="slider">
-    <div class="msg-col">
-      <h1 class="">Sound State</h1>
-      <div class="hive">
-      <img src="images/justhive.png" class="img-hive">
+<section id="soundstate" class="state" >
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="msg-container">
+        <div id="slider">
+          <div class="msg-col">
+            <h1 class="text-left">Sound State</h1>
+            <div class="hive">
+              <img src="images/justhive.png" class="img-hive">
+            </div>
+            <p>The bees sound alright!</p>
+            <h6><a>NORMAL</a></h6>
+          </div>
+          <div class="msg-col-alarm">
+            <h1 class="">Sound State</h1>
+            <!-- Insert woodpecker image -->
+            <p>The bee hives are attacked by a woodpecker!</p>
+            <h6><a>WOODPECKER</a></h6>
+          </div>
+          <div class="msg-col-alarm">
+            <h1 class="">Swarm State</h1>
+            <!-- Insert swarming image -->
+            <p>High temperature, drastic change of weight, or the bee counter alarms; the bees might be leaving the hive!</p>
+            <h6><a>SWARMING</a></h6>
+          </div>
+        </div>
+      </div>
     </div>
-      <p>The bees sound alright!</p>
-      <h6><a>NORMAL</a></h6>
-    </div>
-    <div class="msg-col-alarm">
-      <h1 class="">Sound State</h1>
-      <!-- Insert woodpecker image -->
-      <p>The bee hives are attacked by a woodpecker!</p>
-      <h6><a>WOODPECKER</a></h6>
-    </div>
-    <div class="msg-col-alarm">
-      <h1 class="">Swarm State</h1>
-      <!-- Insert swarming image -->
-      <p>High temperature, drastic change of weight, or the bee counter alarms; the bees might be leaving the hive!</p>
-      <h6><a>SWARMING</a></h6>
-    </div>
+    <div class="col-md-3"></div>
   </div>
 </section>
 
