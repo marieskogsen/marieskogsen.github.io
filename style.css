@@ -11,8 +11,6 @@ body
 
 #nav-bar
 {
-  position: fixed;
-  top: 0;
   z-index: 10;
   width: 100%;
 }
@@ -26,7 +24,10 @@ body
 .navbar li a
 {
   font-weight:600;
-  color: #000 !important;
+  color: rgb(27, 27, 27) !important;
+}
+.navbar li a:hover{
+  color: rgb(99, 99, 99) !important;
 }
 
 #banner
