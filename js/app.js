@@ -1,7 +1,7 @@
 // Global objects
 const api_test = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
 const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
-const deviceId = "nrf-352656106119046"; // Roof
+const deviceId = "nrf-352656106101531"; // Roof
 let counterInterval;
 let requestInterval;
 let temp;
