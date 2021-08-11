@@ -71,6 +71,19 @@ class NRFCloudAPI {
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}&pageLimit=100`);
 	}
 
+	getOlderMessages(deviceId, bend) {
+        // const dust = parseInt(bend);
+        // $('#temperature2').text(bend);
+        // const end = new Date(parseInt(bend));
+        // const currentEnd = new Date(end - bend);
+        const end = new Date(bend);
+        const start = new Date(bend - 720000000);
+        // $('#temperature').text(start);
+        // this.getMessages_start = new Date();
+        const devIdsParam = deviceId ? `&deviceIdentifiers=${deviceId}` : '';
+        return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${bend.toISOString()}${devIdsParam}&pageLimit=99`);
+}
+
 	sendMessages() {
 		this.sendMessages_start = new Date();
 		return this.post('{"message":"BLE_status"}');
