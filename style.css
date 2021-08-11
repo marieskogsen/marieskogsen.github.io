@@ -235,6 +235,11 @@ img.small-bee2{max-width: 45%;}
   width: 100%;
 }
 
+#soundstate{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 .msg-col{
   width: 700px;
   height: 100px;
