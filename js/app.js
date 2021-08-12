@@ -106,23 +106,25 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 			console.log('appID: ',appID);
 			switch(appID) {
 				case "Thingy" :
-					secondaryUpdateFunc[appID](TEMP);
-					primaryUpdateFunc[appID](HUMID);
 					if (NAME == "Hive1"){
+						secondaryUpdateFunc[appID](TEMP);
+						primaryUpdateFunc[appID](HUMID);
 						temp_arr[0] = temp;
 						humid_arr[0] = humid;
 					} 
-					if (NAME == "Hive2") {
+					if (NAME == "Hive2") {					
+						secondaryUpdateFunc[appID](TEMP);
+						primaryUpdateFunc[appID](HUMID);
 						temp_arr[1] = temp;
 						humid_arr[1] = humid;
+						updateTime[appID](TIME);
+						// update temperature chart
+						temp_data.addRow([index, temp_arr[0], temp_arr[1]]);
+						t_chart.draw(temp_data, t_options);
+						// update humidity chart
+						humid_data.addRow([index, humid_arr[0], humid_arr[1]]);
+						h_chart.draw(humid_data, h_options);
 					}
-					updateTime[appID](TIME);
-					// update temperature chart
-					temp_data.addRow([index, temp_arr[0], temp_arr[1]]);
-					t_chart.draw(temp_data, t_options);
-					// update humidity chart
-					humid_data.addRow([index, humid_arr[0], humid_arr[1]]);
-					h_chart.draw(humid_data, h_options);
 					break;
 				case "BM-W" :
 					primaryUpdateFunc[appID](RTT);
