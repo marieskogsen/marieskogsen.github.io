@@ -11,6 +11,7 @@ let weight;
 let index;
 let b_in;
 let b_out;
+let battery = [];
 
 // Collection of update functions for different message types of nRFCloud device messages
 /* Update function for the first or only data variable the appID has */
@@ -139,7 +140,6 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 
 async function backlogBattery(){
     let test = 0;
-    let battery = [];
     let time = [];
     while(test<100){
         let testStart = test;
@@ -223,19 +223,7 @@ function drawChart() {
 	  hAxis: {
 		title: "Time"
 	  },
-	  series: {
-		0: {targetAxisIndex: 0, color: "#007f00"},
-		1: {targetAxisIndex: 1, color: "#ee82ee"}
-	  },
-	  vAxes: {
-		  0: {title: 'Temperature hive 1'},
-		  1: {title: 'Temperature hive 2'}
-	  },
 	  vAxis: {
-		// viewWindow: {
-		//   max: 45,
-		//   min: 0
-		// },
 		title: "Temp (celsius)"
 	  }
 	};
@@ -245,18 +233,7 @@ function drawChart() {
 	  hAxis: {
 		title: "Time"
 	  },
-	  series: {
-		0: {targetAxisIndex: 0, color: "#007f00"},
-		1: {targetAxisIndex: 1, color: "#ee82ee"}
-	  },
-	  vAxes: {
-		0: {title: 'Humidity hive 1'},
-		1: {title: 'Humidity hive 2'}
-	  },
 	  vAxis: {
-		// viewWindow: {
-		//   //max: 70
-		// },
 		title: "Humidity (%)"
 	  },
 	//   colors: ["#a52714"]
@@ -281,15 +258,6 @@ function drawChart() {
 		title: "Bee counter",
 		hAxis: {
 		  title: "Time"
-		},
-		series: {
-			0: {targetAxisIndex: 0, color: "#007f00"},
-			1: {targetAxisIndex: 1, color: "#ee82ee"}
-		},
-		vAxes: {
-			// Adds titles to each axis.
-			0: {title: 'Number of bees in'},
-			1: {title: 'Number of bees out'}
 		},		
 		vAxis: {
 			title: "Number of bees"
@@ -298,7 +266,7 @@ function drawChart() {
 
 	// draw the three charts on load
 	let t_chart = new google.visualization.LineChart(
-	  document.getElementById("chart_temp")
+	  	document.getElementById("chart_temp")
 	);
 	let w_chart = new google.visualization.LineChart(
 		document.getElementById("chart_weight")
