@@ -265,20 +265,33 @@ img.small-bee2{max-width: 45%;}
   margin-top: 25px;
 }
 
+#reboot{
+  width: 100%;
+}
+
+#soundstate{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 .msg-col{
   width: 700px;
   height: 100px;
 }
-
 .msg-container{
   width: 600px;
   height: 600px;
   position: relative;
-  margin-top: 100px;
-  margin-bottom: 50px;
-  margin-right: 200px;
-  margin-left: 150px;
+  /*   margin-top: 100px;*/
+  /*margin-bottom: 100px; */
+  margin-right: 300px;
+  margin-left: 25%; 
   overflow: hidden;
+}
+@media only screen and (max-width: 600px){
+  .msg-container{
+    width: 100%;
+  }
 }
 
 .state{
@@ -307,10 +320,9 @@ img.small-bee2{max-width: 45%;}
 
 
 .hive{
-  position: relative;
-  left: -50px;
   margin-top: 50px;
   margin-bottom: 50px;
+  transform: translateX(-5%);
 }
 
 .img-logo{
@@ -363,4 +375,5 @@ img.small-bee2{max-width: 45%;}
   background-color: #ff3333;
   height: 100%;
   width: 20px;
+  
 }

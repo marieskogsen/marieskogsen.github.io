@@ -1,7 +1,8 @@
 // Global objects
-const api_test = new NRFCloudAPI("af2cf1f0a9b60f858a98dc956ce7c98a3800857b"); // Marie
 const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
-const deviceId = "nrf-352656106101531"; // Roof
+const roofId = "nrf-352656106119046"; // Roof
+const thingyId = "nrf-352656106101531"; // Thingy31
+const deviceId = thingyId;
 let counterInterval;
 let requestInterval;
 let temp;
@@ -126,6 +127,42 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 	}, 5000);
 }	
 
+
+async function backlogBattery(){
+    let test = 0;
+    let battery = [];
+    let time = [];
+    while(test<100){
+        let testStart = test;
+        let now;
+        if(test == 0){
+            now = new Date();
+        }
+        else{
+            let buf = parseInt(time[test-1]*1000);
+            // $('#temperature').text(now);
+            now = new Date(buf);
+            // $('#temperature4').text(buf);
+        }
+        const { items } = await api.getOlderMessages(localStorage.getItem('deviceId') || '', now);
+        (items || [])
+        .map(({ message }) => message)
+        .forEach(({ BAT, TIME}) => {
+            if(BAT != null){
+                $('#temperature').text(BAT);
+                $('#temperature2').text(TIME);
+                battery[test] = BAT;
+                time[test] = TIME;
+                $('#temperature3').text(battery);
+                test++;
+                $('#temperature4').text("data"+test);
+            }   
+        });
+        if(testStart == test){
+            return;
+        }
+    }
+}
 
 google.charts.load("current", {
 	packages: ["corechart", "line"]
@@ -289,5 +326,29 @@ $(document).ready(() => {
 			});
 		}
 	},5000);
+
+	setInterval(async() => {
+		
+		if (battery >= 50 && battery <= 20){
+			$(".battery-level1").css({
+				"background-color":"#fcd116",
+				"width":"50px"
+			});
+		}
+		else if (battery >= 80){
+			$(".battery-level1").css({
+				"background-color":"#66cd00",
+				"width":"80px"
+			});
+		}
+		else{
+			$(".battery-level1").css({
+				"background-color":"#ff3333",
+				"width":"20px"
+			});
+		}
+	},5000);
+
+
 });
 

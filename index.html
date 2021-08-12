@@ -19,10 +19,10 @@
 <section id="nav-bar">
   <nav class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand m-sm-auto ml-2" href="#top">Beehaviour Monitoring - </a>
-        <div class="img-logo">
-          <img src="images/Logo_RGB_H.png" class="img-logo">
-        </div>
+      <a class="navbar-brand m-sm-auto ml-2" href="#top">Beehaviour Monitoring  </a>
+        <!-- <div class="img-logo"> -->
+          <!-- <img src="images/Logo_RGB_H.png" class="img-logo"> -->
+        <!-- </div> -->
       <button id=navbar-button 
         class="navbar-toggler mr-sm-auto mt-auto" 
         type="button" 
@@ -38,6 +38,9 @@
         <ul class="navbar-nav ml-sm-auto ml-2">
           <li class="nav-item">
             <a class="nav-link" href="#hivedata">HIVE DATA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#soundstate">SOUND STATE</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#about">ABOUT </a>
@@ -67,15 +70,14 @@
 
 </section> 
 
-<!-----Data section----->   
-<section>
-<div id="hivedata">
+<!-----Data section----->    
+<section id="hivedata">
   <div class="container">
     <h1 class="title text-center">Hive Data</h1>
   </div>
 
   <div id="trackView" class="row">
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center humidity flex-even border">  <!-- humitity cell -->
           <div class="align-self-center">
             <h6>HUMIDITY %</h6>
@@ -86,7 +88,7 @@
           <div class="align-self-center">Last updated humidity data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center temperature flex-even border"> <!-- temperature cell -->
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
@@ -97,7 +99,7 @@
         <div class="align-self-center">Most recent temperature data</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4 col-12">
+    <div class="col-md-4">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> <!-- weight cell -->
         <div class="align-self-center">
           <h6>WEIGHT kg</h6>
@@ -109,7 +111,6 @@
       </div> <!-- end of cell -->
     </div>
   </div>
-</div>
 
 
 <!-- Row with battery state-->
@@ -157,72 +158,76 @@
 <!--div id="chart_div" style="width: 900px; height: 500px"></div-->
 <div class="row"> <!-- This setup for dynamic sizing of graph works when the charts are drawn relatively often -->
                   <!-- TODO: Look for ways to redraw charts when window is resized -->
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_temp" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_hum" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_weight" style="width: auto; height: 500px"></div>
   </div>
-  <div class="col-lg-6 col-12">
+  <div class="col-lg-6">
     <div id="chart_bee" style="width: auto; height: 500px"></div>
   </div>
-</div>
-
 <!--div id="curve_chart" style="width: 900px; height: 500px"></div-->
-  <div id= "reboot" class= "msg-col text-center">
-    <h6><a href="">Reset development kits</a></h6>
-
+  <div class="col">
+    <div id= "reboot" class= "msg-col text-center">
+      <h6><a href="">Reset development kits</a></h6>
+    </div>
+  </div>
+</div>
 </section>
   
 
-<section class="state">
-
-  <div class="msg-container">
-  
-  <div id="slider">
-    <div class="msg-col">
-      <h1 class="">Sound State</h1>
-      <div class="hive">
-      <img src="images/justhive.png" class="img-hive">
+<section id="soundstate" class="state" >
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="msg-container">
+        <div id="slider">
+          <div class="msg-col">
+            <h1 class="text-left">Sound State</h1>
+            <div class="hive">
+              <img src="images/justhive.png" class="img-hive">
+            </div>
+            <p>The bees sound alright!</p>
+            <h6><a>NORMAL</a></h6>
+          </div>
+          <div class="msg-col-alarm">
+            <h1 class="">Sound State</h1>
+            <!-- Insert woodpecker image -->
+            <p>The bee hives are attacked by a woodpecker!</p>
+            <h6><a>WOODPECKER</a></h6>
+          </div>
+          <div class="msg-col-alarm">
+            <h1 class="">Swarm State</h1>
+            <!-- Insert swarming image -->
+            <p>High temperature, drastic change of weight, or the bee counter alarms; the bees might be leaving the hive!</p>
+            <h6><a>SWARMING</a></h6>
+          </div>
+        </div>
+      </div>
     </div>
-      <p>The bees sound alright!</p>
-      <h6><a>NORMAL</a></h6>
-    </div>
-    <div class="msg-col-alarm">
-      <h1 class="">Sound State</h1>
-      <!-- Insert woodpecker image -->
-      <p>The bee hives are attacked by a woodpecker!</p>
-      <h6><a>WOODPECKER</a></h6>
-    </div>
-    <div class="msg-col-alarm">
-      <h1 class="">Swarm State</h1>
-      <!-- Insert swarming image -->
-      <p>High temperature, drastic change of weight, or the bee counter alarms; the bees might be leaving the hive!</p>
-      <h6><a>SWARMING</a></h6>
-    </div>
+    <div class="col-md-3"></div>
   </div>
-  </div>
-
-
-
-  </section>
+</section>
 
 <!-----About section----->     
 <section id="about">
 <div class="container">
   <h1 class="about-title text-center">About Beehaviour</h1>
-  <div class="row">
-    <div class="col-md-6 col-12">
-      <p class="description text-center">We are a group of summer students at Nordic Semiconductor! Our summer project was about digitalizing bee hives by monitoring temperature, humidity and weight using nRF5340 development kits and Thingy:91 along with external sensors. Sensor data from the kits and the sensors were sent over BLE. The data fetched from the hives was sent to nRFCloud using the Thingy:91, and then presented on this website.</p>
-    </div>
-    <div class="col-md-3 col-6">
-      <img src="images/justbee.png" class="small-bee">
-    </div>
-    <div class="col-md-3 col-6">
-      <img src="images/justbee.png" class="small-bee2">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <p class="description text-center">We are a group of summer students at Nordic Semiconductor! Our summer project was about digitalizing bee hives by monitoring temperature, humidity and weight using nRF5340 development kits and Thingy:91 along with external sensors. Sensor data from the kits and the sensors were sent over BLE. The data fetched from the hives was sent to nRFCloud using the Thingy:91, and then presented on this website.</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <img src="images/justbee.png" class="small-bee">
+      </div>
+      <div class="col-md-3 col-6">
+        <img src="images/justbee.png" class="small-bee2">
+      </div>
     </div>
   </div>
 </div>
@@ -253,9 +258,9 @@
       <div class="col-md-4 footer-box">
         <p class="footer-text">Beehaviour monitoring 2021</p>
       </div>
-      <div class="col-md-4 text-center">
+     <!--  <div class="col-md-4 text-center">
         <img src="images/Logo_Solid_White_V.png" class="footer-logo">
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
