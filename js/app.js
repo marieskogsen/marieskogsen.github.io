@@ -1,8 +1,6 @@
 // Global objects
-const api = new NRFCloudAPI("f41964799625f69d7c32ca15040b251f2b88a6e6"); // Erik
-const roofId = "nrf-352656106119046"; // Roof
-const thingyId = "nrf-352656106101531"; // Thingy31
-const deviceId = thingyId;
+const api = getApiKey();
+const deviceId = getDeviceId();
 let counterInterval;
 let requestInterval;
 let temp;
@@ -86,12 +84,13 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		(items || [])
 		.map(({ message }) => message)
 		.slice().reverse()
-		.forEach(({ appID, TEMP, HUMID, RTT, TIME, IN, OUT }) => {
+		.forEach(({ appID, TEMP, HUMID, RTT, TIME, IN, OUT, BAT }) => {
 			if (!primaryUpdateFunc[appID]) {
 				console.log('unhandled appID', appID);
 				return;
 			}
 			console.log('appID: ',appID);
+			$('#battery-th91').text(toString(BAT));
 			switch(appID) {
 				case "Thingy" :
 					secondaryUpdateFunc[appID](TEMP);
