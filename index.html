@@ -19,8 +19,10 @@
 <section id="nav-bar">
   <nav class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand m-sm-auto ml-2" href="#top">Beehaviour Monitoring</a>
-        
+      <a class="navbar-brand m-sm-auto ml-2" href="#top">Beehaviour Monitoring  </a>
+        <!-- <div class="img-logo"> -->
+          <!-- <img src="images/Logo_RGB_H.png" class="img-logo"> -->
+        <!-- </div> -->
       <button id=navbar-button 
         class="navbar-toggler mr-sm-auto mt-auto" 
         type="button" 
@@ -55,7 +57,7 @@
     <div class="row">
       <div class="col-md-6">
         <p class="promo-title">Smart Hives: Live data from the bee hives</p>
-        <p class= "desc">The hives' weight, humidity and temperature. Find out how busy the bees are with the counter, or if they are attacked by a woodpecker!</p>
+        <p class= "desc">The hives' <b>weight</b>, <b>humidity</b> and <b>temperature</b>. Find out how busy the bees are with the <b>bee counter</b>, or if they are attacked by a <b>woodpecker</b>!</p>
       </div>
       <div class="col-md-6 text-center">
         <img src="images/justhive.png" class="img-hive">
@@ -63,6 +65,9 @@
       </div>
     </div>
   </div>
+
+  <img src="images/white-border.png" class="bottom-img">
+
 </section> 
 
 <!-----Data section----->    
@@ -106,6 +111,49 @@
       </div> <!-- end of cell -->
     </div>
   </div>
+
+
+<!-- Row with battery state-->
+<div id="batteryView" class="row">
+<div class="col-md-4 col-12">
+  <div class="d-flex flex-column mx-2 my-1">
+    <div class="align-self-center">
+      <h1 id="humidity">-%</h1>
+    </div>
+<div class="battery">
+  <div class="battery-level1">
+  </div>
+</div>
+<div class="align-self-center">Thingy:52 - Hive 1</div>
+</div>
+</div>
+<div class="col-md-4 col-12">
+  <div class="d-flex flex-column mx-2 my-1">
+    <div class="align-self-center">
+      <h1 id="humidity">-%</h1>
+    </div>
+  <div class="battery">
+    <div class="battery-level2">
+    </div>
+  </div>
+  <div class="align-self-center">Thingy:52 - Hive 2</div>
+</div>
+</div>
+<div class="col-md-4">
+  <div class="d-flex flex-column mx-2 my-1">
+    <div class="align-self-center">
+      <h1 id="battery-th91">-%</h1>
+    </div>
+  <div class="battery">
+  <div class="battery-level3">
+  </div>
+</div>
+<div class="align-self-center">Thingy:91</div>
+</div>
+</div>
+</div>
+
+
 
 <!--div id="chart_div" style="width: 900px; height: 500px"></div-->
 <div class="row"> <!-- This setup for dynamic sizing of graph works when the charts are drawn relatively often -->
@@ -185,6 +233,23 @@
 </div>
 </section>
 
+<!--Process section-->
+<section id="process">
+  <div class="container">
+    <h1 class="process-title text-center">The Process</h1>
+    <div class="row">
+      <div class="">
+        <p class="description text-center">Brainstorming, planning and thinking. Where to start? 
+          From sensors to nRF5340, using BLE, sensors on Thingy:52 and Broodminder-W scale.
+          The bee counter; itsy-bitsy and infra red light.
+          The woodpecker alarm uses machine learning with edge impulse and sound data training set.
+          Send data from nRF5340 to nRF9160, and Thingy:91, which then sends data to nRFCloud.
+          Get data from cloud using REST API, visualize the interesting data, alarm if something is wrong.
+        </p>
+      </div>
+    </div>
+  </div>
+  </section>
 
 <!-----Footer section----->
 <section id= "footer">
@@ -193,14 +258,15 @@
       <div class="col-md-4 footer-box">
         <p class="footer-text">Beehaviour monitoring 2021</p>
       </div>
-      <div class="col-md-8">
-        <!-- nothing here -->
-      </div>
+     <!--  <div class="col-md-4 text-center">
+        <img src="images/Logo_Solid_White_V.png" class="footer-logo">
+      </div> -->
     </div>
   </div>
 </section>
 
 <script src="js/cloud-api.js" ></script>
+<script src="js/secret_stuff.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

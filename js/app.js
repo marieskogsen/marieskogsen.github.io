@@ -1,4 +1,6 @@
 // Global objects
+const api = getApiKey();
+const deviceId = getDeviceId();
 let counterInterval;
 let requestInterval;
 let temp;
@@ -84,12 +86,13 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		(items || [])
 		.map(({ message }) => message)
 		.slice().reverse()
-		.forEach(({ appID, TEMP, HUMID, NAME, RTT, TIME, IN, OUT }) => {
+		.forEach(({ appID, TEMP, HUMID, RTT, NAME, TIME, IN, OUT, BAT }) => {
 			if (!primaryUpdateFunc[appID]) {
 				console.log('unhandled appID', appID);
 				return;
 			}
 			console.log('appID: ',appID);
+			$('#battery-th91').text(toString(BAT));
 			switch(appID) {
 				case "Thingy" :
 					secondaryUpdateFunc[appID](TEMP);
@@ -133,6 +136,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 	}, 5000);
 }	
 
+
 async function backlogBattery(){
     let test = 0;
     let battery = [];
@@ -168,7 +172,6 @@ async function backlogBattery(){
         }
     }
 }
-
 
 google.charts.load("current", {
 	packages: ["corechart", "line"]
@@ -350,5 +353,29 @@ $(document).ready(() => {
 			});
 		}
 	},5000);
+
+	setInterval(async() => {
+		
+		if (battery >= 50 && battery <= 20){
+			$(".battery-level1").css({
+				"background-color":"#fcd116",
+				"width":"50px"
+			});
+		}
+		else if (battery >= 80){
+			$(".battery-level1").css({
+				"background-color":"#66cd00",
+				"width":"80px"
+			});
+		}
+		else{
+			$(".battery-level1").css({
+				"background-color":"#ff3333",
+				"width":"20px"
+			});
+		}
+	},5000);
+
+
 });
 
