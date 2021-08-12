@@ -338,6 +338,11 @@ img.small-bee2{max-width: 45%;}
   margin-bottom: 10px;
 }
 
+#battery-th91 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .battery:after {
   background-color: #fff;
   border: 2px solid #000;
