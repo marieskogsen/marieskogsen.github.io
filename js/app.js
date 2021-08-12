@@ -9,6 +9,9 @@ let weight;
 let index;
 let b_in;
 let b_out;
+let battery;
+const battery_max = 4200;
+const battery_min = 3500;
 
 // Collection of update functions for different message types of nRFCloud device messages
 /* Update function for the first or only data variable the appID has */
@@ -71,6 +74,7 @@ const updateTime = {
 }
 
 
+
 function checkNRFCloudMessages(temp_data, t_chart, t_options,
 							   humid_data, h_chart, h_options,
 							   weight_data, w_chart, w_options,
@@ -86,11 +90,18 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		.slice().reverse()
 		.forEach(({ appID, TEMP, HUMID, RTT, TIME, IN, OUT, BAT }) => {
 			if (!primaryUpdateFunc[appID]) {
+				console.log(BAT);
+				battery = ((BAT - battery_min) / (battery_max - battery_min)*100);
+				if (battery < 100){
+					$('#battery-th91').text(battery.toFixed(2)+"%");
+				} else {
+					$('#battery-th91').text("100 %");
+					battery = 100;
+				}
 				console.log('unhandled appID', appID);
 				return;
 			}
 			console.log('appID: ',appID);
-			$('#battery-th91').text(toString(BAT));
 			switch(appID) {
 				case "Thingy" :
 					secondaryUpdateFunc[appID](TEMP);
@@ -127,7 +138,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 }	
 
 
-async function backlogBattery(){
+/*async function backlogBattery(){
     let test = 0;
     let battery = [];
     let time = [];
@@ -161,7 +172,7 @@ async function backlogBattery(){
             return;
         }
     }
-}
+}*/
 
 google.charts.load("current", {
 	packages: ["corechart", "line"]
@@ -324,29 +335,29 @@ $(document).ready(() => {
 				"transform":"translateX(0%)"
 			});
 		}
-	},5000);
+	}, 5000);
 
 	setInterval(async() => {
 		
-		if (battery >= 50 && battery <= 20){
-			$(".battery-level1").css({
+		if (battery >= 50 ){
+			$(".battery-level3").css({
 				"background-color":"#fcd116",
 				"width":"50px"
 			});
 		}
 		else if (battery >= 80){
-			$(".battery-level1").css({
+			$(".battery-level3").css({
 				"background-color":"#66cd00",
 				"width":"80px"
 			});
 		}
 		else{
-			$(".battery-level1").css({
+			$(".battery-level3").css({
 				"background-color":"#ff3333",
 				"width":"20px"
 			});
 		}
-	},5000);
+	}, 5000);
 
 
 });
