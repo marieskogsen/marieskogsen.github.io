@@ -4,7 +4,9 @@ const deviceId = getDeviceId();
 let counterInterval;
 let requestInterval;
 let temp;
+let temp_arr = [];
 let humid;
+let humid_arr = [];
 let weight;
 let index;
 let b_in;
@@ -88,7 +90,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 		(items || [])
 		.map(({ message }) => message)
 		.slice().reverse()
-		.forEach(({ appID, TEMP, HUMID, RTT, TIME, IN, OUT, BAT }) => {
+		.forEach(({ appID, TEMP, HUMID, RTT, NAME, TIME, IN, OUT, BAT }) => {
 			if (!primaryUpdateFunc[appID]) {
 				console.log(BAT);
 				battery = ((BAT - battery_min) / (battery_max - battery_min)*100);
@@ -106,12 +108,20 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 				case "Thingy" :
 					secondaryUpdateFunc[appID](TEMP);
 					primaryUpdateFunc[appID](HUMID);
+					if (NAME == "Hive1"){
+						temp_arr[0] = temp;
+						humid_arr[0] = humid;
+					} 
+					if (NAME == "Hive2") {
+						temp_arr[1] = temp;
+						humid_arr[1] = humid;
+					}
 					updateTime[appID](TIME);
 					// update temperature chart
-					temp_data.addRow([index, temp]);
+					temp_data.addRow([index, temp_arr[0], temp_arr[1]]);
 					t_chart.draw(temp_data, t_options);
 					// update humidity chart
-					humid_data.addRow([index, humid]);
+					humid_data.addRow([index, humid_arr[0], humid_arr[1]]);
 					h_chart.draw(humid_data, h_options);
 					break;
 				case "BM-W" :
@@ -140,7 +150,6 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 
 /*async function backlogBattery(){
     let test = 0;
-    let battery = [];
     let time = [];
     while(test<100){
         let testStart = test;
@@ -186,18 +195,20 @@ function drawChart() {
 	var temp_data = new google.visualization.DataTable();
 	let initialDate = new Date();
 	temp_data.addColumn("datetime","Time");
-	temp_data.addColumn("number","Temperature");
+	temp_data.addColumn("number","Hive 1");
+	temp_data.addColumn("number","Hive 2");
 	temp_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
 					 initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
-					 initialDate.getSeconds()), NaN]);
+					 initialDate.getSeconds()), NaN, NaN]);
 	
 	// create humid data object with default value
 	var humid_data = new google.visualization.DataTable();
 	humid_data.addColumn("datetime","Time");
-	humid_data.addColumn("number","Humidity");
+	humid_data.addColumn("number","Hive 1");
+	humid_data.addColumn("number","Hive 2");
 	humid_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
 					  initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
-					  initialDate.getSeconds()), NaN]);
+					  initialDate.getSeconds()), NaN, NaN]);
 	
 	// create data object for weight graph
 	var weight_data = new google.visualization.DataTable();
@@ -223,10 +234,6 @@ function drawChart() {
 		title: "Time"
 	  },
 	  vAxis: {
-		viewWindow: {
-		  max: 45,
-		  min: 0
-		},
 		title: "Temp (celsius)"
 	  }
 	};
@@ -237,12 +244,9 @@ function drawChart() {
 		title: "Time"
 	  },
 	  vAxis: {
-		viewWindow: {
-		  //max: 70
-		},
 		title: "Humidity (%)"
 	  },
-	  colors: ["#a52714"]
+	//   colors: ["#a52714"]
 	};
 	// create options for weight object with titles etc.
 	let w_options = {
@@ -264,15 +268,6 @@ function drawChart() {
 		title: "Bee counter",
 		hAxis: {
 		  title: "Time"
-		},
-		series: {
-			0: {targetAxisIndex: 0, color: "#007f00"},
-			1: {targetAxisIndex: 1, color: "#ee82ee"}
-		  },
-		vAxes: {
-			// Adds titles to each axis.
-			0: {title: 'Number of bees in'},
-			1: {title: 'Number of bees out'}
 		},		
 		vAxis: {
 			title: "Number of bees"
@@ -281,7 +276,7 @@ function drawChart() {
 
 	// draw the three charts on load
 	let t_chart = new google.visualization.LineChart(
-	  document.getElementById("chart_temp")
+	  	document.getElementById("chart_temp")
 	);
 	let w_chart = new google.visualization.LineChart(
 		document.getElementById("chart_weight")
