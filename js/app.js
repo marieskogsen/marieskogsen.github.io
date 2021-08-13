@@ -106,23 +106,25 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 			console.log('appID: ',appID);
 			switch(appID) {
 				case "Thingy" :
-					secondaryUpdateFunc[appID](TEMP);
-					primaryUpdateFunc[appID](HUMID);
 					if (NAME == "Hive1"){
+						secondaryUpdateFunc[appID](TEMP);
+						primaryUpdateFunc[appID](HUMID);
 						temp_arr[0] = temp;
 						humid_arr[0] = humid;
 					} 
-					else if (NAME == "Hive2") {
+					if (NAME == "Hive2") {					
+						secondaryUpdateFunc[appID](TEMP);
+						primaryUpdateFunc[appID](HUMID);
 						temp_arr[1] = temp;
 						humid_arr[1] = humid;
+						updateTime[appID](TIME);
+						// update temperature chart
+						temp_data.addRow([index, temp_arr[0], temp_arr[1]]);
+						t_chart.draw(temp_data, t_options);
+						// update humidity chart
+						humid_data.addRow([index, humid_arr[0], humid_arr[1]]);
+						h_chart.draw(humid_data, h_options);
 					}
-					updateTime[appID](TIME);
-					// update temperature chart
-					temp_data.addRow([index, temp_arr[0], temp_arr[1]]);
-					t_chart.draw(temp_data, t_options);
-					// update humidity chart
-					humid_data.addRow([index, humid_arr[0], humid_arr[1]]);
-					h_chart.draw(humid_data, h_options);
 					break;
 				case "BM-W" :
 					primaryUpdateFunc[appID](RTT);
@@ -235,7 +237,8 @@ function drawChart() {
 	  },
 	  vAxis: {
 		title: "Temp (celsius)"
-	  }
+	  },
+	  colors: ["#1300bb","#a52714"]
 	};
 	// options for humidity plot
 	let h_options = {
@@ -246,7 +249,7 @@ function drawChart() {
 	  vAxis: {
 		title: "Humidity (%)"
 	  },
-	//   colors: ["#a52714"]
+	  colors: ["#047377","#de9000"]
 	};
 	// create options for weight object with titles etc.
 	let w_options = {
@@ -271,7 +274,8 @@ function drawChart() {
 		},		
 		vAxis: {
 			title: "Number of bees"
-		}
+		},
+		colors: ["#007f00","#ee82ee"]
 	  };
 
 	// draw the three charts on load
@@ -334,16 +338,16 @@ $(document).ready(() => {
 
 	setInterval(async() => {
 		
-		if (battery >= 50 || battery >= 20){
-			$(".battery-level3").css({
-				"background-color":"#fcd116",
-				"width":"50px"
-			});
-		}
-		else if (battery >= 80){
+		if (battery >= 80){
 			$(".battery-level3").css({
 				"background-color":"#66cd00",
 				"width":"80px"
+			});
+		}
+		else if (battery >= 50 || battery >= 20){
+			$(".battery-level3").css({
+				"background-color":"#fcd116",
+				"width":"50px"
 			});
 		}
 		else{

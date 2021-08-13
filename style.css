@@ -338,6 +338,11 @@ img.small-bee2{max-width: 45%;}
   margin-bottom: 10px;
 }
 
+#battery-th91 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .battery:after {
   background-color: #fff;
   border: 2px solid #000;
@@ -360,20 +365,20 @@ img.small-bee2{max-width: 45%;}
 }
 
 .battery .battery-level1 {
-  background-color: #66cd00;
+  background-color: #666;
   height: 100%;
-  width: 80px;
+  width: 50px;
 }
 
 .battery .battery-level2 {
-  background-color: #fcd116;
+  background-color: #666;
   height: 100%;
   width: 50px;
 }
 
 .battery .battery-level3 {
-  background-color: #ff3333;
+  background-color: #666;
   height: 100%;
-  width: 20px;
+  width: 50px;
   
 }
