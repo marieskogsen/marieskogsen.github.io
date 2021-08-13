@@ -237,7 +237,8 @@ function drawChart() {
 	  },
 	  vAxis: {
 		title: "Temp (celsius)"
-	  }
+	  },
+	  colors: ["#1300bb","#a52714"]
 	};
 	// options for humidity plot
 	let h_options = {
@@ -248,7 +249,7 @@ function drawChart() {
 	  vAxis: {
 		title: "Humidity (%)"
 	  },
-	//   colors: ["#a52714"]
+	  colors: ["#047377","#de9000"]
 	};
 	// create options for weight object with titles etc.
 	let w_options = {
@@ -273,7 +274,8 @@ function drawChart() {
 		},		
 		vAxis: {
 			title: "Number of bees"
-		}
+		},
+		colors: ["#007f00","#ee82ee"]
 	  };
 
 	// draw the three charts on load
