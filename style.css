@@ -18,7 +18,7 @@ body
   border:none;
 }
 .navbar{
-  background-image: linear-gradient(to right, #ffc04c, #ff9a00);
+  background-image: linear-gradient(to right, #efba5f, #ff9a00);
   padding: 0 !important;
 }
 .navbar li a
@@ -32,7 +32,7 @@ body
 
 #banner
 {
-  background-image: linear-gradient(to right, #ffc04c, #ff9a00);
+  background-image: linear-gradient(to right, #efba5f, #ff9a00);
   padding-top: 105px;
 }
 .promo-title
@@ -231,7 +231,7 @@ body
 }
 
 #footer{
-  background-image: linear-gradient(to right, #ffc04c, #ff9a00);
+  background-image: linear-gradient(to right, #efba5f, #ff9a00);
 }
 .footer-box{
   padding: 20px;
