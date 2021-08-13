@@ -13,7 +13,7 @@ let b_in;
 let b_out;
 let battery;
 const battery_max = 4200;
-const battery_min = 3500;
+const battery_min = 3380;
 
 // Collection of update functions for different message types of nRFCloud device messages
 /* Update function for the first or only data variable the appID has */
@@ -112,7 +112,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 						temp_arr[0] = temp;
 						humid_arr[0] = humid;
 					} 
-					if (NAME == "Hive2") {
+					else if (NAME == "Hive2") {
 						temp_arr[1] = temp;
 						humid_arr[1] = humid;
 					}
@@ -334,7 +334,7 @@ $(document).ready(() => {
 
 	setInterval(async() => {
 		
-		if (battery >= 50 ){
+		if (battery >= 50 || battery >= 20){
 			$(".battery-level3").css({
 				"background-color":"#fcd116",
 				"width":"50px"
