@@ -59,6 +59,12 @@ body
   transform: translateY(58px);
 }
 
+@media only screen and (max-width: 240px) {
+  .title::before{
+    width: 90%;
+  }
+}
+
 .title::after{
   content: "";
   background: #ff9a00;
@@ -102,6 +108,12 @@ body
   transform: translateY(58px);
 }
 
+@media only screen and (max-width: 388px) {
+  .about-title::before{
+    width: 90%;
+  }
+}
+
 .about-title::after{
   content: "";
   background: #ff9a00;
@@ -141,6 +153,11 @@ body
   margin-bottom: 40px;
   display: block;
   transform: translateY(5px);
+}
+@media only screen and (max-width: 388px) {
+  .process-title::before{
+    width: 90%;
+  }
 }
 
 .temperature{
@@ -338,7 +355,7 @@ img.small-bee2{max-width: 45%;}
   margin-bottom: 10px;
 }
 
-#battery-th91 {
+.battery-percent {
   padding-top: 20px;
   padding-bottom: 20px;
 }

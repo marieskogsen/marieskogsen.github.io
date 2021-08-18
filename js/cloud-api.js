@@ -71,17 +71,11 @@ class NRFCloudAPI {
 		return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}&pageLimit=100`);
 	}
 
-	getOlderMessages(deviceId, bend) {
-        // const dust = parseInt(bend);
-        // $('#temperature2').text(bend);
-        // const end = new Date(parseInt(bend));
-        // const currentEnd = new Date(end - bend);
-        const end = new Date(bend);
-        const start = new Date(bend - 720000000);
-        // $('#temperature').text(start);
-        // this.getMessages_start = new Date();
+	getOlderMessages(deviceId, to, msecs_back) {
+        const end = new Date(to);
+        const start = new Date(to - msecs_back);
         const devIdsParam = deviceId ? `&deviceIdentifiers=${deviceId}` : '';
-        return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${bend.toISOString()}${devIdsParam}&pageLimit=99`);
+        return this.get(`/messages?inclusiveStart=${start.toISOString()}&exclusiveEnd=${end.toISOString()}${devIdsParam}&pageLimit=100`);
 }
 
 	sendMessages() {
