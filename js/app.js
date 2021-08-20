@@ -1,6 +1,6 @@
 // Global objects
 const api = getApiKey();
-const deviceId = getDeviceId();
+let deviceId = getDeviceId(2);
 let counterInterval;
 let requestInterval;
 let temp;
@@ -169,12 +169,10 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 	}, 5000);
 }	
 
-async function backlogWeight(weight_data, w_chart, w_options){
+async function backlogWeight(weight_data, w_chart, w_options, backlog_start, backlog_end){
     let stamp = 0;
     let time = [];
 	let weight_arr = [];
-	let backlog_start = 2;
-	let backlog_end = 0;
 	let m_secondsAday = 86400000;
 	let now = new Date();
 	let end_time = new Date(now.getTime() - parseInt(backlog_end*m_secondsAday));
@@ -185,7 +183,7 @@ async function backlogWeight(weight_data, w_chart, w_options){
             let buf = parseInt(time[stamp-1]*1000);
             end_time = new Date(buf);
         }
-        const { items } = await api.getOlderMessages(localStorage.getItem('deviceId') || '', end_time, (backlog_start*m_secondsAday));
+        const { items } = await api.getOlderMessages(/* localStorage.getItem('deviceId') || */ '', end_time, (backlog_start*m_secondsAday));
         (items || [])
         .map(({ message }) => message)
         .forEach(({ RTT, TIME}) => {
@@ -202,45 +200,10 @@ async function backlogWeight(weight_data, w_chart, w_options){
 				weight_data.addRow([index,weight]);
 			}
 			w_chart.draw(weight_data, w_options);
-            return 1;
-        }
-    }
-}
-
-/* async function backlogBattery(){
-    let test = 0;
-    let time = [];
-    while(test<100){
-        let testStart = test;
-        let now;
-        if(test == 0){
-            now = new Date();
-        }
-        else{
-            let buf = parseInt(time[test-1]*1000);
-            // $('#temperature').text(now);
-            now = new Date(buf);
-            // $('#temperature4').text(buf);
-        }
-        const { items } = await api.getOlderMessages(localStorage.getItem('deviceId') || '', now);
-        (items || [])
-        .map(({ message }) => message)
-        .forEach(({ BAT, TIME}) => {
-            if(BAT != null){
-                $('#temperature').text(BAT);
-                $('#temperature2').text(TIME);
-                battery[test] = BAT;
-                time[test] = TIME;
-                $('#temperature3').text(battery);
-                test++;
-                $('#temperature4').text("data"+test);
-            }   
-        });
-        if(testStart == test){
             return;
         }
     }
-} */
+}
 
 google.charts.load("current", {
 	packages: ["corechart", "line"]
@@ -351,8 +314,17 @@ function drawChart() {
 	w_chart.draw(weight_data, w_options);
 	h_chart.draw(humid_data, h_options);
 	b_chart.draw(beecnt_data, b_options);
-	
-	backlogWeight(weight_data, w_chart, w_options);
+
+	let starttime,endtime;
+	/* max and min values in comments are for valid interval. Values found by trial and error */
+	/* interval for oldest data */
+	// starttime = 14.12; // max 14.12
+	// endtime = 10.5; // min 10.5 (thrsday 14:00)
+	// backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
+	/* interval for newest data */
+	starttime = 9; // max 8.85
+	endtime = 0;
+	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	
 	/* Checks for messages from cloud and updates charts from messages */
 	checkNRFCloudMessages(temp_data, t_chart, t_options, 
