@@ -318,17 +318,17 @@ function drawChart() {
 	let starttime,endtime;
 	/* max and min values in comments are for valid interval. Values found by trial and error */
 	/* interval for oldest data */
-	starttime = 15; // max 14.12
-	endtime = 11.5; // min 10.5 (thrsday 14:00)
-	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
+	// starttime = 15; // max 14.12
+	// endtime = 11.1; // min 10.5 (thrsday 14:00)
+	// backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	/* interval for newest data */
-	starttime = 9; // max 8.85
+	starttime = 7; // max 8.85
 	endtime = 0;
 	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	setTimeout(checkNRFCloudMessages(temp_data, t_chart, t_options, 
 		humid_data, h_chart, h_options, 
 	   weight_data, w_chart, w_options,
-	   beecnt_data, b_chart, b_options),85000);
+	   beecnt_data, b_chart, b_options),80000);
 	/* Checks for messages from cloud and updates charts from messages */
 	// checkNRFCloudMessages(temp_data, t_chart, t_options, 
 	// 				 	  humid_data, h_chart, h_options, 
@@ -339,24 +339,24 @@ function drawChart() {
 
 
 function batteryicon_changer(i,object) {
-	if (battery[i] >= 80){
-				$(object).css({
-					"background-color":"#66cd00",
-					"width":"80px"
-				});
-			}
-			else if (battery[i] <= 50 && battery[i] >= 20){
-				$(object).css({
-					"background-color":"#fcd116",
-					"width":"50px"
-				});
-			}
-			else{
-				$(object).css({
-					"background-color":"#ff3333",
-					"width":"20px"
-				});
-			}
+	$(object).css({
+		"width":(battery[i]).toString()+"px"
+	});
+	if (battery[i] >= 75){
+		$(object).css({
+			"background-color":"#66cd00",
+		});
+	}
+	else if (battery[i] > 20){
+		$(object).css({
+			"background-color":"#fcd116",
+		});
+	}
+	else{
+		$(object).css({
+			"background-color":"#ff3333",
+		});
+	}
 	
 	}
 
@@ -391,20 +391,9 @@ $(document).ready(() => {
 	}, 5000);
 
 	setInterval(async() => {
-		for (var i = 0; i < 3; i++) {
-			switch(i){
-				case 0:
-					batteryicon_changer(i,".battery-level1");
-					 break;
-				case 1:
-					batteryicon_changer(i,".battery-level2");
-					break;
-				case 2:
-					batteryicon_changer(i,".battery-level3");
-					break;
-				default:
-					break;
-			}
+		for (var i = 1; i <= 3; i++) {
+			batteryicon_changer(i,'.battery-level'+i.toString());
+
 		}
 	}, 5000);
 
