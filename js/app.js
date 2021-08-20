@@ -18,10 +18,14 @@ const battery_min = 3380;
 // Collection of update functions for different message types of nRFCloud device messages
 /* Update function for the first or only data variable the appID has */
 const primaryUpdateFunc = { 
-	Thingy: HUMID => {
+	Thingy: (HUMID, NAME) => {
 		var f_data = parseFloat(HUMID).toFixed(2);
 		HUMID = f_data.toString();
-		$('#humidity').text(HUMID);
+		if (NAME == "Hive1") {
+			$('#humidity').text(HUMID);
+		} else {
+			$('#humidity2').text(HUMID);
+		}
 		humid = parseFloat(HUMID);
 	},
 	"BM-W": RTT => {
@@ -37,10 +41,14 @@ const primaryUpdateFunc = {
 
 /* Update function for appIDs with two data variables */
 const secondaryUpdateFunc = { 
-	Thingy: TEMP => {
+	Thingy: (TEMP,NAME) => {
 		var f_data = parseFloat(TEMP).toFixed(2);
 		TEMP = f_data.toString();
-		$('#temperature').text(TEMP);
+		if (NAME == "Hive1"){
+			$('#temperature').text(TEMP);
+		} else{
+			$('#temperature2').text(TEMP);
+		}
 		temp = parseFloat(TEMP);
 	},
 	"BM-W": TEMP => {
@@ -109,8 +117,8 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 				case "Thingy" :
 					updateTime[appID](TIME);
 					if (NAME == "Hive1"){
-						secondaryUpdateFunc[appID](TEMP);
-						primaryUpdateFunc[appID](HUMID);
+						secondaryUpdateFunc[appID](TEMP,NAME);
+						primaryUpdateFunc[appID](HUMID,NAME);
 						battery[1] = parseInt(BTRY);
 						$('#battery-h1').text(battery[1]+"%");
 						temp_arr[0] = temp;
@@ -119,8 +127,8 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 						humid_counter++;
 					} 
 					if (NAME == "Hive2") {					
-						secondaryUpdateFunc[appID](TEMP);
-						primaryUpdateFunc[appID](HUMID);
+						secondaryUpdateFunc[appID](TEMP,NAME);
+						primaryUpdateFunc[appID](HUMID,NAME);
 						battery[2] = parseInt(BTRY);
 						$('#battery-h2 ').text(battery[2]+"%");
 						temp_arr[1] = temp;
@@ -322,13 +330,13 @@ function drawChart() {
 	// endtime = 11.1; // min 10.5 (thrsday 14:00)
 	// backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	/* interval for newest data */
-	starttime = 7; // max 8.85
-	endtime = 0;
+	starttime = 1; // max 8.85
+	endtime = 0.05;
 	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	setTimeout(checkNRFCloudMessages(temp_data, t_chart, t_options, 
 		humid_data, h_chart, h_options, 
 	   weight_data, w_chart, w_options,
-	   beecnt_data, b_chart, b_options),80000);
+	   beecnt_data, b_chart, b_options),0);
 	/* Checks for messages from cloud and updates charts from messages */
 	// checkNRFCloudMessages(temp_data, t_chart, t_options, 
 	// 				 	  humid_data, h_chart, h_options, 
@@ -347,9 +355,14 @@ function batteryicon_changer(i,object) {
 			"background-color":"#66cd00",
 		});
 	}
-	else if (battery[i] > 20){
+	else if (battery[i] > 50){
 		$(object).css({
 			"background-color":"#fcd116",
+		});
+	}
+	else if (battery[i] > 20){
+		$(object).css({
+			"background-color":"#ff7f00",
 		});
 	}
 	else{
@@ -392,8 +405,7 @@ $(document).ready(() => {
 
 	setInterval(async() => {
 		for (var i = 1; i <= 3; i++) {
-			batteryicon_changer(i,'.battery-level'+i.toString());
-
+			batteryicon_changer(i,'.battery-level' + i.toString());
 		}
 	}, 5000);
 
