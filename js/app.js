@@ -318,19 +318,22 @@ function drawChart() {
 	let starttime,endtime;
 	/* max and min values in comments are for valid interval. Values found by trial and error */
 	/* interval for oldest data */
-	// starttime = 14.12; // max 14.12
-	// endtime = 10.5; // min 10.5 (thrsday 14:00)
-	// backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
+	starttime = 15; // max 14.12
+	endtime = 11.5; // min 10.5 (thrsday 14:00)
+	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	/* interval for newest data */
 	starttime = 9; // max 8.85
 	endtime = 0;
 	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
-	
+	setTimeout(checkNRFCloudMessages(temp_data, t_chart, t_options, 
+		humid_data, h_chart, h_options, 
+	   weight_data, w_chart, w_options,
+	   beecnt_data, b_chart, b_options),85000);
 	/* Checks for messages from cloud and updates charts from messages */
-	checkNRFCloudMessages(temp_data, t_chart, t_options, 
-					 	  humid_data, h_chart, h_options, 
-						  weight_data, w_chart, w_options,
-						  beecnt_data, b_chart, b_options);
+	// checkNRFCloudMessages(temp_data, t_chart, t_options, 
+	// 				 	  humid_data, h_chart, h_options, 
+	// 					  weight_data, w_chart, w_options,
+	// 					  beecnt_data, b_chart, b_options);
 
 }
 
