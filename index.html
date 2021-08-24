@@ -80,30 +80,69 @@
   </div>
 
   <div id="trackView" class="row">
-    <div class="col-md-4">
-      <div class="d-flex flex-column mx-2 my-1 justify-content-center humidity flex-even border">  <!-- humitity cell -->
-          <div class="align-self-center">
-            <h6>HUMIDITY %</h6>
-          </div>
-          <div class="align-self-center">
-            <h1 id="humidity">-</h1>
-          </div>
-          <div class="align-self-center">Last updated humidity data</div>
-      </div> <!-- end of cell -->
-    </div>
-    <div class="col-md-4">
+    <div class="col-lg-3 col-md-6">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center temperature flex-even border"> <!-- temperature cell -->
+        <div class="align-self-center">
+          <h5>HIVE 1</h5>
+        </div>
         <div class="align-self-center">
           <h6 >TEMPERATURE &#176;C</h6>
         </div>
         <div class="align-self-center">
           <h1 id="temperature">-</h1>
         </div>
-        <div class="align-self-center">Most recent temperature data</div>
+        <div class="align-self-center">Most recent temperature data from Hive 1</div>
       </div> <!-- end of cell -->
     </div>
-    <div class="col-md-4">
+
+    <div class="col-lg-3 col-md-6">
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> 
+      <div class="align-self-center">
+        <h5>HIVE 2</h5>
+      </div>
+      <div class="align-self-center">
+        <h6>TEMPERATURE &#176;C</h6>
+      </div>
+      <div class="align-self-center">
+        <h1 id="temperature2">-</h1>
+      </div>
+        <div class="align-self-center">Most recent temperature data from Hive 2</div>
+    </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center humidity flex-even border">  <!-- humitity cell -->
+        <div class="align-self-center">
+          <h5>HIVE 1</h5>
+        </div>
+          <div class="align-self-center">
+            <h6>HUMIDITY %</h6>
+          </div>
+          <div class="align-self-center">
+            <h1 id="humidity">-</h1>
+          </div>
+          <div class="align-self-center">Last updated humidity data from Hive 1</div>
+      </div> <!-- end of cell -->
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> 
+      <div class="align-self-center">
+        <h5>HIVE 2</h5>
+      </div>
+      <div class="align-self-center">
+        <h6>HUMIDITY %</h6>
+      </div>
+      <div class="align-self-center">
+        <h1 id="humidity2">-</h1>
+      </div>
+        <div class="align-self-center">Most recent humidity data from Hive 2</div>
+    </div>
+    </div>
+   
+    <div class="col-lg-3 col-md-6">
       <div class="d-flex flex-column mx-2 my-1 justify-content-center weight flex-even border"> <!-- weight cell -->
+        <div class="align-self-center">
+          <h5>HIVE 1</h5>
+        </div>
         <div class="align-self-center">
           <h6>WEIGHT kg</h6>
         </div>
@@ -118,42 +157,42 @@
 
 <!-- Row with battery state-->
 <div id="batteryView" class="row">
-<div class="col-md-4">
-  <div class="d-flex flex-column mx-2 my-1">
-    <div class="align-self-center">
-      <h1 class = battery-percent id="battery-h1">-%</h1>
-    </div>
-<div class="battery">
-  <div class="battery-level1">
-  </div>
-</div>
-<div class="align-self-center">Thingy:52 - Hive 1</div>
-</div>
-</div>
-<div class="col-md-4">
-  <div class="d-flex flex-column mx-2 my-1">
-    <div class="align-self-center">
-      <h1 class = battery-percent id="battery-h2">-%</h1>
-    </div>
-  <div class="battery">
-    <div class="battery-level2">
+  <div class="col-md-4">
+    <div class="d-flex flex-column mx-2 my-1">
+      <div class="align-self-center">
+        <h1 class = battery-percent id="battery-h1">-%</h1>
+      </div>
+      <div class="battery">
+        <div class="battery-level1">
+        </div>
+      </div>
+      <div class="align-self-center">Thingy:52 - Hive 1</div>
     </div>
   </div>
-  <div class="align-self-center">Thingy:52 - Hive 2</div>
-</div>
-</div>
-<div class="col-md-4">
-  <div class="d-flex flex-column mx-2 my-1">
-    <div class="align-self-center">
-      <h1 class = battery-percent id="battery-th91">-%</h1>
+  <div class="col-md-4">
+    <div class="d-flex flex-column mx-2 my-1">
+      <div class="align-self-center">
+        <h1 class = battery-percent id="battery-h2">-%</h1>
+      </div>
+      <div class="battery">
+        <div class="battery-level2">
+        </div>
+      </div>
+      <div class="align-self-center">Thingy:52 - Hive 2</div>
     </div>
-  <div class="battery">
-  <div class="battery-level3">
   </div>
-</div>
-<div class="align-self-center">Thingy:91</div>
-</div>
-</div>
+  <div class="col-md-4">
+    <div class="d-flex flex-column mx-2 my-1">
+      <div class="align-self-center">
+        <h1 class = battery-percent id="battery-th91">-%</h1>
+      </div>
+      <div class="battery">
+        <div class="battery-level3">
+        </div>
+      </div>
+      <div class="align-self-center">Thingy:91</div>
+    </div>
+  </div>
 </div>
 
 

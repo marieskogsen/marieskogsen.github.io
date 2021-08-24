@@ -116,9 +116,9 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 			switch(appID) {
 				case "Thingy" :
 					updateTime[appID](TIME);
+					secondaryUpdateFunc[appID](TEMP,NAME);
+					primaryUpdateFunc[appID](HUMID,NAME);
 					if (NAME == "Hive1"){
-						secondaryUpdateFunc[appID](TEMP,NAME);
-						primaryUpdateFunc[appID](HUMID,NAME);
 						battery[1] = parseInt(BTRY);
 						$('#battery-h1').text(battery[1]+"%");
 						temp_arr[0] = temp;
@@ -127,8 +127,8 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 						humid_counter++;
 					} 
 					if (NAME == "Hive2") {					
-						secondaryUpdateFunc[appID](TEMP,NAME);
-						primaryUpdateFunc[appID](HUMID,NAME);
+						// secondaryUpdateFunc[appID](TEMP,NAME);
+						// primaryUpdateFunc[appID](HUMID,NAME);
 						battery[2] = parseInt(BTRY);
 						$('#battery-h2 ').text(battery[2]+"%");
 						temp_arr[1] = temp;
@@ -161,7 +161,7 @@ function checkNRFCloudMessages(temp_data, t_chart, t_options,
 
 				if (temp_counter == 3){
 					// update temperature chart
-					temp_data.addRow([index, temp_arr[0], temp_arr[1], temp_arr[2]]);
+					temp_data.addRow([index, temp_arr[0], temp_arr[1]/* , temp_arr[2] */]);
 					t_chart.draw(temp_data, t_options);
 					temp_counter = 0;
 				}
@@ -227,10 +227,10 @@ function drawChart() {
 	temp_data.addColumn("datetime","Time");
 	temp_data.addColumn("number","Hive 1");
 	temp_data.addColumn("number","Hive 2");
-	temp_data.addColumn("number","Outside(BM-W)");
+	// temp_data.addColumn("number","Outside(BM-W)");
 	temp_data.addRow([new Date(initialDate.getFullYear(),initialDate.getMonth(), 
 					 initialDate.getDate(), initialDate.getHours(), initialDate.getMinutes(), 
-					 initialDate.getSeconds()), NaN, NaN, NaN]);
+					 initialDate.getSeconds()), NaN, NaN/* , NaN */]);
 	
 	// create humid data object with default value
 	var humid_data = new google.visualization.DataTable();
@@ -327,16 +327,16 @@ function drawChart() {
 	/* max and min values in comments are for valid interval. Values found by trial and error */
 	/* interval for oldest data */
 	// starttime = 15; // max 14.12
-	// endtime = 11.1; // min 10.5 (thrsday 14:00)
+	// endtime = 11.1; // min 10.5 (thursday 19th August 14:00)
 	// backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	/* interval for newest data */
-	starttime = 1; // max 8.85
-	endtime = 0.05;
+	starttime = 5; // max 8.85 (thursday 19th August 14:00)
+	endtime = 4;
 	backlogWeight(weight_data, w_chart, w_options, starttime, endtime);
 	setTimeout(checkNRFCloudMessages(temp_data, t_chart, t_options, 
 		humid_data, h_chart, h_options, 
 	   weight_data, w_chart, w_options,
-	   beecnt_data, b_chart, b_options),0);
+	   beecnt_data, b_chart, b_options),10000);
 	/* Checks for messages from cloud and updates charts from messages */
 	// checkNRFCloudMessages(temp_data, t_chart, t_options, 
 	// 				 	  humid_data, h_chart, h_options, 
