@@ -334,7 +334,7 @@ img.small-bee2{max-width: 45%;}
 }
 #slider{
   display: inline-flex;
-  transform: 0;
+  transform: -33%;
 }
 
 .msg-col-alarm{
