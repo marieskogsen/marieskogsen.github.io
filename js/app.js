@@ -398,7 +398,7 @@ $(document).ready(() => {
 		}
 		else{
 			$("#slider").css({
-				"transform":"translateX(-33%)"
+				"transform":"translateX(0%)"
 			});
 		}
 	}, 5000);
